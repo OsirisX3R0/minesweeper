@@ -1,7 +1,5 @@
 import React, {createContext, useState, useCallback, useEffect} from 'react'
 import gridl from 'gridl'
-//import useGenerateBoard from '../Hooks/useGenerateBoard'
-//import { getAdjacentValues, getAdjacentCoords } from '../Utils/adjacentSpaces';
 import randomIntFromInterval from '../Utils/randomIntFromInterval';
 import { createGlobalStyle } from 'styled-components';
 import { background, foreground } from '../Styles/variables';
@@ -46,62 +44,35 @@ export const GameProvider = ({ children }) => {
         }
         return generatedMines;
     }
-
-    const getAdjacentValues = (space, board) => {
-        var [h, w] = space;
-        var widthMinus = w - 1;
-        var widthPlus = w + 1;
-        var heightMinus = h - 1;
-        var heightPlus = h + 1;
-        var topLeft = heightMinus >= 0 && widthMinus >= 0;
-        var top = heightMinus >= 0;
-        var topRight = heightMinus >= 0 && widthPlus <= width - 1;
-        var left = widthMinus >= 0;
-        var right = widthPlus <= width - 1;
-        var bottomLeft = heightPlus <= height - 1 && widthMinus >= 0;
-        var bottom = heightPlus <= height - 1;
-        var bottomRight = heightPlus <= height - 1 && widthPlus <= width - 1;
       
-        return [
-          topLeft ? board[h - 1][w - 1] : null,
-          top ? board[h - 1][w] : null,
-          topRight ? board[h - 1][w + 1] : null,
-          left ? board[h][w - 1] : null,
-          right ? board[h][w + 1] : null,
-          bottomLeft ? board[h + 1][w - 1] : null,
-          bottom ? board[h + 1][w] : null,
-          bottomRight ? board[h + 1][w + 1] : null
-        ];
-      }
-      
-    const getAdjacentCoords = (space) => {
-        var [h, w] = space;
-        var widthMinus = w - 1;
-        var widthPlus = w + 1;
-        var heightMinus = h - 1;
-        var heightPlus = h + 1;
-        //var topLeft = heightMinus >= 0 && widthMinus >= 0;
-        var top = heightMinus >= 0;
-        //var topRight = heightMinus >= 0 && widthPlus <= width - 1;
-        var left = widthMinus >= 0;
-        var right = widthPlus <= width - 1;
-        //var bottomLeft = heightPlus <= height - 1 && widthMinus >= 0;
-        var bottom = heightPlus <= height - 1;
-        //var bottomRight = heightPlus <= height - 1 && widthPlus <= width - 1;
+    // const getAdjacentCoords = (space) => {
+    //     var [h, w] = space;
+    //     var widthMinus = w - 1;
+    //     var widthPlus = w + 1;
+    //     var heightMinus = h - 1;
+    //     var heightPlus = h + 1;
+    //     //var topLeft = heightMinus >= 0 && widthMinus >= 0;
+    //     var top = heightMinus >= 0;
+    //     //var topRight = heightMinus >= 0 && widthPlus <= width - 1;
+    //     var left = widthMinus >= 0;
+    //     var right = widthPlus <= width - 1;
+    //     //var bottomLeft = heightPlus <= height - 1 && widthMinus >= 0;
+    //     var bottom = heightPlus <= height - 1;
+    //     //var bottomRight = heightPlus <= height - 1 && widthPlus <= width - 1;
     
-        var coords = [
-            //topLeft ? [h - 1, w - 1] : null,
-            top ? [h - 1, w] : null,
-            //topRight ? [h - 1, w + 1] : null,
-            left ? [h, w - 1] : null,
-            right ? [h, w + 1] : null,
-            //bottomLeft ? [h + 1, w - 1] : null,
-            bottom ? [h + 1, w] : null,
-            //bottomRight ? [h + 1, w + 1] : null
-        ];
+    //     var coords = [
+    //         //topLeft ? [h - 1, w - 1] : null,
+    //         top ? [h - 1, w] : null,
+    //         //topRight ? [h - 1, w + 1] : null,
+    //         left ? [h, w - 1] : null,
+    //         right ? [h, w + 1] : null,
+    //         //bottomLeft ? [h + 1, w - 1] : null,
+    //         bottom ? [h + 1, w] : null,
+    //         //bottomRight ? [h + 1, w + 1] : null
+    //     ];
     
-        return coords.filter(a => a !== null && a.toString() !== coords.toString());
-    }
+    //     return coords.filter(a => a !== null && a.toString() !== coords.toString());
+    // }
 
     // const clickSpaces = (row, space) => {
     //     let adjacentToThis = adjacents[row][space]
@@ -117,46 +88,24 @@ export const GameProvider = ({ children }) => {
     //     })
     // }
 
-    const getAllAdjacentSpaces = (board, row, space, alreadyAdjacent = []) => {
-        let adjacent = getAdjacentCoords([row, space]).filter(s => s !== null)
-        let already = [...alreadyAdjacent, [row, space]]
+    // const getAllAdjacentSpaces = (board, row, space, alreadyAdjacent = []) => {
+    //     let adjacent = getAdjacentCoords([row, space]).filter(s => s !== null)
+    //     let already = [...alreadyAdjacent, [row, space]]
 
-        if(!already.find(([aRow, aSpace]) => aRow === row && aSpace === space)) {
-            adjacent.forEach(([thisRow, thisSpace]) => {
-                if(board[thisRow][thisSpace] === 0) {
-                    if (!already.find(([aRow, aSpace]) => thisRow === aRow && thisSpace === aSpace)) {
-                        getAllAdjacentSpaces(board, thisRow, thisSpace, already)
-                    }
-                }
-            })
-        }
+    //     if(!already.find(([aRow, aSpace]) => aRow === row && aSpace === space)) {
+    //         adjacent.forEach(([thisRow, thisSpace]) => {
+    //             if(board[thisRow][thisSpace] === 0) {
+    //                 if (!already.find(([aRow, aSpace]) => thisRow === aRow && thisSpace === aSpace)) {
+    //                     getAllAdjacentSpaces(board, thisRow, thisSpace, already)
+    //                 }
+    //             }
+    //         })
+    //     }
 
-        return adjacent
-    }
+    //     return adjacent
+    // }
 
-    const getAdjacentSpaces = (row, space) => {
-        let cells = [space - 1, row - 1]
-        return gridl(gameBoard).adjacentCellsAt(cells)
-        // let topLeft = searchBoard(gameBoard, row - 1, space - 1)
-        // let top = searchBoard(gameBoard, row - 1, space)
-        // let topRight = searchBoard(gameBoard, row - 1, space + 1)
-        // let left = searchBoard(gameBoard, row, space - 1)
-        // let right = searchBoard(gameBoard, row, space + 1)
-        // let bottomLeft = searchBoard(gameBoard, row + 1, space - 1)
-        // let bottom = searchBoard(gameBoard, row + 1, space)
-        // let bottomRight = searchBoard(gameBoard, row + 1, space + 1)
-
-        // return [
-        //     topLeft,
-        //     top,
-        //     topRight,
-        //     left,
-        //     right,
-        //     bottomLeft,
-        //     bottom,
-        //     bottomRight
-        // ].filter(s => s.id)
-    }
+    const getAdjacentSpaces = (row, space) => gridl(gameBoard).adjacentCellsAt([space - 1, row - 1])
 
     const getAdjacentMines = (board, row, space) => {
         let topLeft = searchBoard(board, row - 1, space - 1)
@@ -224,7 +173,6 @@ export const GameProvider = ({ children }) => {
                     )))
                 ))
             }
-            //openSpace(space.id)
         })
     }
 

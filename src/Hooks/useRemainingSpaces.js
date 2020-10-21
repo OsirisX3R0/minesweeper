@@ -7,7 +7,7 @@ const useRemainingSpaces = () => {
     const spaces = useMemo(() => (width * height) - mines, [width, height, mines])
     const [remainingSpaces, setRemainingSpaces] = useState('')
     const [emptySpaces] = useState(spaces)
-    const [spacesLeft, setSpacesLeft] = useState(spaces)
+    const [spacesLeft] = useState(spaces)
 
     useEffect(() => {
         setRemainingSpaces(`${spacesLeft - openSpaces}/${emptySpaces}`)

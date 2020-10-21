@@ -1,5 +1,5 @@
 import  styled from "styled-components"
-import getCellColor from "./getCellColor"
+import getCellColor from "./helpers/getCellColor"
 import { background, foreground } from "./variables"
 
 export const Header = styled.h1``

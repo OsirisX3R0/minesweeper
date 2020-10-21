@@ -1,8 +1,7 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react'
 
-import { GameContext } from '../Context/GameContext';
-import useAdjacent from '../Hooks/useAdjacent';
-import { Cell } from '../Styles';
+import { GameContext } from '../Context/GameContext'
+import { Cell } from '../Styles'
 
 const Space = ({ space }) => {
     const { gameBoard, getAdjacentSpaces, openSpace, openAdjacent, markSpace } = useContext(GameContext)

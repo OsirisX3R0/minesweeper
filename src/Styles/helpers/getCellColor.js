@@ -1,4 +1,4 @@
-import { foreground } from "./variables"
+import { foreground } from "../variables"
 
 const getCellColor = (isMarked, isMine, mineCount) => {
     if (isMarked) {
