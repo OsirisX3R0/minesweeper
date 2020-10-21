@@ -52,10 +52,40 @@ const Space = ({ space }) => {
         return null
     }
 
+    const cellClassName = () => { 
+        if (space.isMarked) {
+            return 'flag'
+        }
+        if (space.isMine) {
+            return 'mine'
+        }
+
+        switch(space.mineCount){
+            case 1:
+                return 'one'
+            case 2:
+                return 'two'
+            case 3:
+                return 'three'
+            case 4:
+                return 'four'
+            case 5:
+                return 'five'
+            case 6:
+                return 'six'
+            case 7:
+                return 'seven'
+            case 8:
+                return 'eight'
+            default:
+                return ''
+        }
+    }
     return (
         <td 
             onContextMenu={onContextMenu}
             onClick={() => openSpace(space.id, adjacentSpaces)}
+            className={cellClassName()}
         >
             {displayValue()}
         </td>

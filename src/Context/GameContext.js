@@ -3,7 +3,6 @@ import gridl from 'gridl'
 //import useGenerateBoard from '../Hooks/useGenerateBoard'
 //import { getAdjacentValues, getAdjacentCoords } from '../Utils/adjacentSpaces';
 import randomIntFromInterval from '../Utils/randomIntFromInterval';
-import testBoard from '../Utils/testBoard';
 
 export const GameContext = createContext();
 
@@ -13,9 +12,16 @@ export const GameProvider = ({ children }) => {
     const [mines, setMines] = useState(10)
     const [gameBoard, setGameBoard] = useState([])
     const [gameStarted, setGameStarted] = useState(false)
-    const [adjacents, setAdjacents] = useState([])
+    const [openSpaces, setOpenSpaces] = useState(0)
     const [gameOver, setGameOver] = useState(false)
     //const generateBoard = useGenerateBoard(settings, setGameBoard);
+
+    useEffect(() => {
+        if(gridl(gameBoard).find(s => s.isOpen))
+            setOpenSpaces(getOpenSpaces())
+    }, [gameBoard])
+
+    const getOpenSpaces = () => gameBoard.flat().filter(s => s.isOpen).length
 
     const generateMines = (max, generatedMines = []) => {
         for(var i = 1; i <= max; i++) {
@@ -87,19 +93,19 @@ export const GameProvider = ({ children }) => {
         return coords.filter(a => a !== null && a.toString() !== coords.toString());
     }
 
-    const clickSpaces = (row, space) => {
-        let adjacentToThis = adjacents[row][space]
+    // const clickSpaces = (row, space) => {
+    //     let adjacentToThis = adjacents[row][space]
 
-        adjacentToThis.forEach(([row, space]) => {
-            setGameBoard(prevBoard => prevBoard.map((thisRow, rowI) => (
-                thisRow.map((thisSpace, spaceI) => (
-                    row === rowI && space === spaceI
-                        ? {...thisSpace, clicked: true}
-                        : thisSpace
-                ))
-            )))
-        })
-    }
+    //     adjacentToThis.forEach(([row, space]) => {
+    //         setGameBoard(prevBoard => prevBoard.map((thisRow, rowI) => (
+    //             thisRow.map((thisSpace, spaceI) => (
+    //                 row === rowI && space === spaceI
+    //                     ? {...thisSpace, clicked: true}
+    //                     : thisSpace
+    //             ))
+    //         )))
+    //     })
+    // }
 
     const getAllAdjacentSpaces = (board, row, space, alreadyAdjacent = []) => {
         let adjacent = getAdjacentCoords([row, space]).filter(s => s !== null)
@@ -293,10 +299,9 @@ export const GameProvider = ({ children }) => {
             setMines,
             gameBoard,
             gameStarted,
-            adjacents,
             getAdjacentSpaces,
             gameOver,
-            clickSpaces,
+            openSpaces,
             openSpace,
             markSpace,
             openAdjacent,
