@@ -62,6 +62,49 @@ td {
   height: 25px;
   border: 1px solid $foreground;
   border-radius: 4px;
+  color: $foreground;
+  font-weight: bold;
   text-align: center;
   padding: 1.5rem;
+
+  &.flag {
+    color: goldenrod;
+  }
+  
+  &.mine {
+    color: darkslategray;
+  }
+
+  &.one {
+    color: cornflowerblue;
+  }
+
+  &.two {
+    color: forestgreen;
+  }
+
+  &.three {
+    color: crimson;
+  }
+
+  &.four {
+    color: darken(yellow, 10%);
+  }
+
+  &.five {
+    color: darken(rosybrown, 10%);
+  }
+
+  &.six {
+    color: darken(cyan, 10%);
+  }
+
+  &.seven {
+    color: darken(violet, 10%);
+  }
+
+  &.eight {
+    color: darken(orangered, 8%);
+  }
 }
+

@@ -3,15 +3,15 @@ import { GameContext } from "../Context/GameContext"
 
 
 const useRemainingSpaces = () => {
-    const { width, height, mines, gameBoard } = useContext(GameContext)
+    const { width, height, mines, openSpaces } = useContext(GameContext)
     const spaces = useMemo(() => (width * height) - mines, [width, height, mines])
     const [remainingSpaces, setRemainingSpaces] = useState('')
     const [emptySpaces] = useState(spaces)
     const [spacesLeft, setSpacesLeft] = useState(spaces)
 
     useEffect(() => {
-        setRemainingSpaces(`${spacesLeft}/${emptySpaces}`)
-    }, [spacesLeft, emptySpaces])
+        setRemainingSpaces(`${spacesLeft - openSpaces}/${emptySpaces}`)
+    }, [spacesLeft, emptySpaces, openSpaces])
 
     return remainingSpaces
 }
