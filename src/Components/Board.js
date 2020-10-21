@@ -3,6 +3,7 @@ import React, { useState, useEffect, useContext, useCallback } from 'react';
 import GameHead from './GameHead'
 import Spaces from './Spaces';
 import { GameContext } from '../Context/GameContext'
+import { Container } from '../Styles';
 //import useGameTime from '../Hooks/useGameTime'
 
 const Board = () => {
@@ -15,17 +16,17 @@ const Board = () => {
     const displayBoard = () => {
         if (gameBoard && gameBoard.length > 0) {
             return (
-                <div className="container">
+                <Container>
                     <GameHead />
                     <Spaces />
-                </div>
+                </Container>
             )            
         }
 
         return (
-            <div className="container">
+            <Container>
                 <div className="start-new">Start a new Game</div>
-            </div>
+            </Container>
         )
     }
 

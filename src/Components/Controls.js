@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 
 import { GameContext } from '../Context/GameContext'
+import { Button, Grid, Input, Item, Label } from '../Styles'
 
 const Controls = () => {
     const {
@@ -17,29 +18,29 @@ const Controls = () => {
     const displayControls = !gameStarted && (
         <>
             <h1>Minesweeper</h1>
-            <div className="grid">
-                <div className="item">
-                    <label>Width</label>
-                    <input type="number" 
+            <Grid>
+                <Item>
+                    <Label>Width</Label>
+                    <Input type="number" 
                         value={width}  
                         onChange={(e) => setWidth(+e.target.value)} />
-                </div>
-                <div className="item">
-                    <label>Height</label>
-                    <input type="number" 
+                </Item>
+                <Item>
+                    <Label>Height</Label>
+                    <Input type="number" 
                         value={height}
                         onChange={(e) => setHeight(+e.target.value)} />
-                </div>
-                <div className="item">
-                    <label># of Mines</label>
-                    <input type="number" 
+                </Item>
+                <Item>
+                    <Label># of Mines</Label>
+                    <Input type="number" 
                         value={mines}
                         onChange={(e) => setMines(+e.target.value)} />
-                </div>
-                <div className="item">
-                    <button onClick={generateBoard}>Start Game</button>
-                </div>
-            </div>
+                </Item>
+                <Item>
+                    <Button onClick={generateBoard}>Start Game</Button>
+                </Item>
+            </Grid>
         </>
     )
 

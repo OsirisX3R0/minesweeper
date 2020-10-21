@@ -1,6 +1,6 @@
 import { foreground } from "./variables"
 
-const getCellCollor = (isMarked, isMine, mineCount) => {
+const getCellColor = (isMarked, isMine, mineCount) => {
     if (isMarked) {
         return 'goldenrod'
     }
@@ -30,4 +30,4 @@ const getCellCollor = (isMarked, isMine, mineCount) => {
     }
 }
 
-export default getCellCollor
+export default getCellColor

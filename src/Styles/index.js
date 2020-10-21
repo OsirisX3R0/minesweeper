@@ -1,4 +1,5 @@
 import  styled from "styled-components"
+import getCellColor from "./getCellColor"
 import { background, foreground } from "./variables"
 
 export const Container = styled.div`
@@ -9,11 +10,15 @@ export const Container = styled.div`
     justify-content: center;
 `
 
-export const GameHead = styled.div`
+export const GameHeadContainer = styled.div`
     display: grid;
     grid-auto-flow: column;
     justify-content: space-between;
 `
+
+export const SpacesLeft = styled.div``
+
+export const Time = styled.div``
 
 export const Grid = styled.div`
     width: 100%;
@@ -36,7 +41,12 @@ export const Input = styled.input`
     padding: .5rem;
 `
 
-export const Button = styled(Input)`
+export const Button = styled.button`
+    background-color: ${background};
+    color: ${foreground};
+    border: 1px solid ${foreground};
+    border-radius: 5px;
+    padding: .5rem;
     transition: all .2s;
 
     &:hover {
@@ -50,12 +60,14 @@ export const BoardTable = styled.table``
 
 export const BoardBody = styled.tbody``
 
+export const BoardRow = styled.tr``
+
 export const Cell = styled.td`
     width: 25px;
     height: 25px;
     border: 1px solid ${foreground};
     border-radius: 4px;
-    color: ${foreground};
+    color: ${props => getCellColor(props.isMarked, props.isMine, props.mineCount)};
     font-weight: bold;
     text-align: center;
     padding: 1.5rem;

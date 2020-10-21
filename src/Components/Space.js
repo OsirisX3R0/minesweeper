@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback, useContext, useMemo, memo } fr
 
 import { GameContext } from '../Context/GameContext';
 import useAdjacent from '../Hooks/useAdjacent';
+import { Cell } from '../Styles';
 
 const Space = ({ space }) => {
     const { gameBoard, getAdjacentSpaces, openSpace, openAdjacent, markSpace } = useContext(GameContext)
@@ -82,13 +83,13 @@ const Space = ({ space }) => {
         }
     }
     return (
-        <td 
+        <Cell 
             onContextMenu={onContextMenu}
             onClick={() => openSpace(space.id, adjacentSpaces)}
             className={cellClassName()}
         >
             {displayValue()}
-        </td>
+        </Cell>
     )
 }
 

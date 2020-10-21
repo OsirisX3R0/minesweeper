@@ -1,20 +1,21 @@
 import React from 'react'
 import useGameTime from '../Hooks/useGameTime'
 import useRemainingSpaces from '../Hooks/useRemainingSpaces'
+import { GameHeadContainer, SpacesLeft, Time } from '../Styles'
 
 const GameHead = () => {
     const gameTime = useGameTime()
     const remainingSpaces = useRemainingSpaces()
 
     return (
-        <div className="game-head">
-            <div className="spaces-left">
+        <GameHeadContainer>
+            <SpacesLeft>
                 {remainingSpaces}
-            </div>
-            <div className="time">
+            </SpacesLeft>
+            <Time>
                 {gameTime}
-            </div>
-        </div>
+            </Time>
+        </GameHeadContainer>
     )
 }
 

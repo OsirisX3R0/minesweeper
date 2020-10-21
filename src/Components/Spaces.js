@@ -1,6 +1,7 @@
 import React, { useContext, useCallback } from 'react'
 
 import {GameContext} from '../Context/GameContext'
+import { BoardBody, BoardRow, BoardTable } from '../Styles'
 import Space from './Space'
 
 const Spaces = () => {
@@ -9,22 +10,22 @@ const Spaces = () => {
     console.log('Spaces rendered')
 
     return (
-        <table>
-            <tbody>
+        <BoardTable>
+            <BoardBody>
                 {gameBoard.map((row, rowIndex) => {
                     return (
-                        <tr key={rowIndex}>
+                        <BoardRow key={rowIndex}>
                             {row.map(space => {
                                 return <Space 
                                     space={space}
                                     key={space.id} 
                                 />
                             })}
-                        </tr>
+                        </BoardRow>
                     )
                 })}
-            </tbody>
-        </table>
+            </BoardBody>
+        </BoardTable>
     )
 }
 

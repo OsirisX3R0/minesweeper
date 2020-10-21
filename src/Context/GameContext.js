@@ -4,13 +4,14 @@ import gridl from 'gridl'
 //import { getAdjacentValues, getAdjacentCoords } from '../Utils/adjacentSpaces';
 import randomIntFromInterval from '../Utils/randomIntFromInterval';
 import { createGlobalStyle } from 'styled-components';
+import { background, foreground } from '../Styles/variables';
 
 export const GameContext = createContext();
 
 const GlobalStyles = createGlobalStyle`
-    body, input {
-        background-color: $background;
-        color: $foreground;
+    body, input, button {
+        background-color: ${background};
+        color: ${foreground};
         font-family: 'Spartan', sans-serif;
     }
 `
