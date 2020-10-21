@@ -2,6 +2,8 @@ import  styled from "styled-components"
 import getCellColor from "./getCellColor"
 import { background, foreground } from "./variables"
 
+export const Header = styled.h1``
+
 export const Container = styled.div`
     width: 100%;
     margin-top: 2rem;
@@ -67,7 +69,7 @@ export const Cell = styled.td`
     height: 25px;
     border: 1px solid ${foreground};
     border-radius: 4px;
-    color: ${props => getCellColor(props.isMarked, props.isMine, props.mineCount)};
+    color: ${props => getCellColor(props.space.isMarked, props.space.isMine, props.space.mineCount)};
     font-weight: bold;
     text-align: center;
     padding: 1.5rem;

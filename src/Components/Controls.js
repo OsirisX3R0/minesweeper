@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 
 import { GameContext } from '../Context/GameContext'
-import { Button, Grid, Input, Item, Label } from '../Styles'
+import { Button, Grid, Header, Input, Item, Label } from '../Styles'
 
 const Controls = () => {
     const {
@@ -17,7 +17,7 @@ const Controls = () => {
 
     const displayControls = !gameStarted && (
         <>
-            <h1>Minesweeper</h1>
+            <Header>Minesweeper</Header>
             <Grid>
                 <Item>
                     <Label>Width</Label>
