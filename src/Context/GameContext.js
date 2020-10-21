@@ -3,8 +3,17 @@ import gridl from 'gridl'
 //import useGenerateBoard from '../Hooks/useGenerateBoard'
 //import { getAdjacentValues, getAdjacentCoords } from '../Utils/adjacentSpaces';
 import randomIntFromInterval from '../Utils/randomIntFromInterval';
+import { createGlobalStyle } from 'styled-components';
 
 export const GameContext = createContext();
+
+const GlobalStyles = createGlobalStyle`
+    body, input {
+        background-color: $background;
+        color: $foreground;
+        font-family: 'Spartan', sans-serif;
+    }
+`
 
 export const GameProvider = ({ children }) => {
     const [width, setWidth] = useState(8)
@@ -308,6 +317,7 @@ export const GameProvider = ({ children }) => {
             generateBoard,
             gameOverProcess
         }}>
+            <GlobalStyles />
             {children}
         </GameContext.Provider>
     )
