@@ -21,6 +21,7 @@ export const GameProvider = ({ children }) => {
     const [gameBoard, setGameBoard] = useState([])
     const [gameStarted, setGameStarted] = useState(false)
     const [openSpaces, setOpenSpaces] = useState(0)
+    const [gameWon, setGameWon] = useState(false)
     const [gameOver, setGameOver] = useState(false)
 
     useEffect(() => {
@@ -174,9 +175,15 @@ export const GameProvider = ({ children }) => {
     }, [])
 
     const gameOverProcess = useCallback(() => {
+        setGameWon(false)
         setGameOver(true)
         showMines()
     }, [showMines])
+
+    const gameWonProcess = useCallback(() => {
+        setGameOver(false)
+        setGameWon(true)
+    }, [])
 
     return (
         <GameContext.Provider value={{
@@ -190,12 +197,14 @@ export const GameProvider = ({ children }) => {
             gameStarted,
             getAdjacentSpaces,
             gameOver,
+            gameWon,
             openSpaces,
             openSpace,
             markSpace,
             openAdjacent,
             generateBoard,
-            gameOverProcess
+            gameOverProcess,
+            gameWonProcess
         }}>
             <GlobalStyles />
             {children}

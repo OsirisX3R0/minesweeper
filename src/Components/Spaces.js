@@ -1,4 +1,4 @@
-import React, { useContext, useCallback } from 'react'
+import React, { useContext } from 'react'
 
 import {GameContext} from '../Context/GameContext'
 import { BoardBody, BoardRow, BoardTable } from '../Styles'

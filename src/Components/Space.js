@@ -4,14 +4,14 @@ import { GameContext } from '../Context/GameContext'
 import { Cell } from '../Styles'
 
 const Space = ({ space }) => {
-    const { getAdjacentSpaces, openSpace, openAdjacent, markSpace } = useContext(GameContext)
+    const { getAdjacentSpaces, openSpace, openAdjacent, markSpace, gameOver, gameOverProcess } = useContext(GameContext)
     const [adjacentSpaces] = useState(getAdjacentSpaces(space.row, space.space))
     const [alreadyOpen, setAlreadyOpen] = useState(false)
     
     console.log(`Space ${space.id} rendered`)
 
     useEffect(() => {
-        if(space.isOpen && !alreadyOpen && space.mineCount === 0){
+        if(space.isOpen && !alreadyOpen && space.mineCount === 0 && !gameOver){
             setAlreadyOpen(true)
             openAdjacent(adjacentSpaces)
         }
@@ -20,6 +20,14 @@ const Space = ({ space }) => {
     const onContextMenu = e => {
         e.preventDefault()
         markSpace(space.id)
+    }
+
+    const onClick = () => {
+        if (space.isMine) {
+            gameOverProcess()
+        } else {
+            openSpace(space.id, adjacentSpaces)
+        }
     }
 
     const displayValue = () => {
@@ -42,13 +50,11 @@ const Space = ({ space }) => {
 
         return null
     }
+
+    const cellProps = {space, onContextMenu, onClick}
     
     return (
-        <Cell
-            space={space}
-            onContextMenu={onContextMenu}
-            onClick={() => openSpace(space.id, adjacentSpaces)}
-        >
+        <Cell {...cellProps}>
             {displayValue()}
         </Cell>
     )
