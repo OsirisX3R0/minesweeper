@@ -25,7 +25,7 @@ export const Time = styled.div``
 export const Grid = styled.div`
     width: 100%;
     display: grid;
-    grid-auto-flow: column;
+    grid-template-columns: repeat(auto-fit, minmax(255px, 1fr));
     grid-gap: 1rem;
 `
 
@@ -58,9 +58,16 @@ export const Button = styled.button`
     }
 `
 
-export const BoardTable = styled.table``
+export const BoardContainer = styled.div`
+    // max-width: 800px;
+    // margin: auto;
+`
 
-export const BoardBody = styled.tbody``
+export const BoardBody = styled.div`
+    display: grid;
+    grid-template-columns: repeat(${props => props.width}, 1fr);
+    gap: .25rem;
+`
 
 export const BoardRow = styled.tr``
 
