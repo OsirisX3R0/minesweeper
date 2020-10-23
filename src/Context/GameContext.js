@@ -22,14 +22,15 @@ export const GameProvider = ({ children }) => {
     const [gameStarted, setGameStarted] = useState(false)
     const [openSpaces, setOpenSpaces] = useState(0)
     const [gameOver, setGameOver] = useState(false)
-    //const generateBoard = useGenerateBoard(settings, setGameBoard);
 
     useEffect(() => {
-        if(gridl(gameBoard).find(s => s.isOpen))
-            setOpenSpaces(getOpenSpaces())
-    }, [gameBoard])
+        if(gridl(gameBoard).find(s => s.isOpen)) {
+            let spaces = gameBoard.flat().filter(s => s.isOpen).length
+            setOpenSpaces(spaces)
+        }
+    }, [gameBoard, setOpenSpaces])
 
-    const getOpenSpaces = () => gameBoard.flat().filter(s => s.isOpen).length
+    //const getOpenSpaces = useCallback(() => gameBoard.flat().filter(s => s.isOpen).length, [])
 
     const generateMines = (max, generatedMines = []) => {
         for(var i = 1; i <= max; i++) {
@@ -44,66 +45,6 @@ export const GameProvider = ({ children }) => {
         }
         return generatedMines;
     }
-      
-    // const getAdjacentCoords = (space) => {
-    //     var [h, w] = space;
-    //     var widthMinus = w - 1;
-    //     var widthPlus = w + 1;
-    //     var heightMinus = h - 1;
-    //     var heightPlus = h + 1;
-    //     //var topLeft = heightMinus >= 0 && widthMinus >= 0;
-    //     var top = heightMinus >= 0;
-    //     //var topRight = heightMinus >= 0 && widthPlus <= width - 1;
-    //     var left = widthMinus >= 0;
-    //     var right = widthPlus <= width - 1;
-    //     //var bottomLeft = heightPlus <= height - 1 && widthMinus >= 0;
-    //     var bottom = heightPlus <= height - 1;
-    //     //var bottomRight = heightPlus <= height - 1 && widthPlus <= width - 1;
-    
-    //     var coords = [
-    //         //topLeft ? [h - 1, w - 1] : null,
-    //         top ? [h - 1, w] : null,
-    //         //topRight ? [h - 1, w + 1] : null,
-    //         left ? [h, w - 1] : null,
-    //         right ? [h, w + 1] : null,
-    //         //bottomLeft ? [h + 1, w - 1] : null,
-    //         bottom ? [h + 1, w] : null,
-    //         //bottomRight ? [h + 1, w + 1] : null
-    //     ];
-    
-    //     return coords.filter(a => a !== null && a.toString() !== coords.toString());
-    // }
-
-    // const clickSpaces = (row, space) => {
-    //     let adjacentToThis = adjacents[row][space]
-
-    //     adjacentToThis.forEach(([row, space]) => {
-    //         setGameBoard(prevBoard => prevBoard.map((thisRow, rowI) => (
-    //             thisRow.map((thisSpace, spaceI) => (
-    //                 row === rowI && space === spaceI
-    //                     ? {...thisSpace, clicked: true}
-    //                     : thisSpace
-    //             ))
-    //         )))
-    //     })
-    // }
-
-    // const getAllAdjacentSpaces = (board, row, space, alreadyAdjacent = []) => {
-    //     let adjacent = getAdjacentCoords([row, space]).filter(s => s !== null)
-    //     let already = [...alreadyAdjacent, [row, space]]
-
-    //     if(!already.find(([aRow, aSpace]) => aRow === row && aSpace === space)) {
-    //         adjacent.forEach(([thisRow, thisSpace]) => {
-    //             if(board[thisRow][thisSpace] === 0) {
-    //                 if (!already.find(([aRow, aSpace]) => thisRow === aRow && thisSpace === aSpace)) {
-    //                     getAllAdjacentSpaces(board, thisRow, thisSpace, already)
-    //                 }
-    //             }
-    //         })
-    //     }
-
-    //     return adjacent
-    // }
 
     const getAdjacentSpaces = (row, space) => gridl(gameBoard).adjacentCellsAt([space - 1, row - 1])
 
@@ -148,7 +89,7 @@ export const GameProvider = ({ children }) => {
                     if (space.isMine) {
                         isMine = space.isMine
                         gameOverProcess()
-                        return
+                        return space
                     }
 
                     return {...space, isOpen: true, isMarked: false}
@@ -223,24 +164,14 @@ export const GameProvider = ({ children }) => {
     }
 
     const showMines = useCallback(() => {
-        let mineSpaces = gameBoard.map(row => row.filter(space => space.isMine)).flat()
-        mineSpaces.forEach(space => {
-            openSpace(space.id)
-        })
-        // let updatedBoard = gameBoard.map(row => row.map(space => (
-        //     space.isMine
-        //         ? {...space, isOpen: true}
-        //         : space
-        // )))
-
-        // setGameBoard(prevBoard =>
-        //     prevBoard.map(row => row.map(space => (
-        //         space.isMine
-        //             ? {...space, isOpen: true}
-        //             : space
-        //     )))
-        // )
-    }, [gameBoard])
+        setGameBoard(prevBoard => 
+            prevBoard.map(row => row.map(space => (
+                space.isMine
+                    ? {...space, isOpen: true}
+                    : space
+            )))
+        )
+    }, [])
 
     const gameOverProcess = useCallback(() => {
         setGameOver(true)

@@ -4,7 +4,7 @@ import { GameContext } from '../Context/GameContext'
 import { Cell } from '../Styles'
 
 const Space = ({ space }) => {
-    const { gameBoard, getAdjacentSpaces, openSpace, openAdjacent, markSpace } = useContext(GameContext)
+    const { getAdjacentSpaces, openSpace, openAdjacent, markSpace } = useContext(GameContext)
     const [adjacentSpaces] = useState(getAdjacentSpaces(space.row, space.space))
     const [alreadyOpen, setAlreadyOpen] = useState(false)
     
