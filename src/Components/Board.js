@@ -1,10 +1,9 @@
-import React, { useState, useEffect, useContext, useCallback } from 'react';
+import React, { useContext } from 'react';
 
 import GameHead from './GameHead'
 import Spaces from './Spaces';
 import { GameContext } from '../Context/GameContext'
-import { Container } from '../Styles';
-//import useGameTime from '../Hooks/useGameTime'
+import { Container } from '../Styles'
 
 const Board = () => {
     const { gameBoard, gameOver } = useContext(GameContext)

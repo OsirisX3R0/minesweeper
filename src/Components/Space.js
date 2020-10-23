@@ -15,7 +15,7 @@ const Space = ({ space }) => {
             setAlreadyOpen(true)
             openAdjacent(adjacentSpaces)
         }
-    }, [space.isOpen, alreadyOpen])
+    }, [space.isOpen, space.mineCount, adjacentSpaces, alreadyOpen, gameOver, openAdjacent])
 
     const onContextMenu = e => {
         e.preventDefault()
