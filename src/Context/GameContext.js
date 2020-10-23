@@ -3,6 +3,8 @@ import gridl from 'gridl'
 import randomIntFromInterval from '../Utils/randomIntFromInterval';
 import { createGlobalStyle } from 'styled-components';
 import { background, foreground } from '../Styles/variables';
+import useGameTime from '../Hooks/useGameTime'
+import useRemainingSpaces from '../Hooks/useRemainingSpaces'
 
 export const GameContext = createContext();
 
@@ -23,6 +25,8 @@ export const GameProvider = ({ children }) => {
     const [openSpaces, setOpenSpaces] = useState(0)
     const [gameWon, setGameWon] = useState(false)
     const [gameOver, setGameOver] = useState(false)
+    const gameTime = useGameTime(gameBoard)
+    const remainingSpaces = useRemainingSpaces(width, height, mines, openSpaces)
 
     useEffect(() => {
         if(gridl(gameBoard).find(s => s.isOpen)) {
@@ -198,6 +202,8 @@ export const GameProvider = ({ children }) => {
             getAdjacentSpaces,
             gameOver,
             gameWon,
+            gameTime,
+            remainingSpaces,
             openSpaces,
             openSpace,
             markSpace,

@@ -44,16 +44,19 @@ export const Input = styled.input`
 `
 
 export const Button = styled.button`
-    background-color: ${background};
-    color: ${foreground};
-    border: 1px solid ${foreground};
+    background-color: ${props => props.fill ? foreground : background};
+    color: ${props => props.fill ? background : foreground};
+    border: 1px solid ${props => props.fill ? background : foreground};
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: .25rem;
     border-radius: 5px;
     padding: .5rem;
     transition: all .2s;
 
     &:hover {
-        background-color: ${foreground};
-        color: ${background};
+        background-color: ${props => props.fill ? background : foreground};
+        color: ${props => props.fill ? foreground : background};
         cursor: pointer;
     }
 `
@@ -71,7 +74,7 @@ export const BoardBody = styled.div`
 
 export const BoardRow = styled.tr``
 
-export const Cell = styled.td`
+export const Cell = styled.div`
     width: 25px;
     height: 25px;
     border: 1px solid ${foreground};
@@ -80,4 +83,10 @@ export const Cell = styled.td`
     font-weight: bold;
     text-align: center;
     padding: 1.5rem;
+`
+
+export const GameWonContainer = styled.div`
+    width: 100%;
+    display: grid;
+    text-align: center;
 `

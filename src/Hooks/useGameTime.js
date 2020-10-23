@@ -4,8 +4,8 @@ import useInterval from "./useInterval";
 import { GameContext } from "../Context/GameContext";
 
 
-const useGameTime = () => {
-    const { gameBoard } = useContext(GameContext)
+const useGameTime = gameBoard => {
+    // const {  } = useContext(GameContext)
     const [timer, setTimer] = useState(0)
     const [gameTime, setGameTime] = useState("")
 

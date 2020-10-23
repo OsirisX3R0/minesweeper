@@ -1,12 +1,9 @@
-import React from 'react'
-import useGameTime from '../Hooks/useGameTime'
-import useRemainingSpaces from '../Hooks/useRemainingSpaces'
+import React, { useContext } from 'react'
+import { GameContext } from '../Context/GameContext'
 import { GameHeadContainer, SpacesLeft, Time } from '../Styles'
 
 const GameHead = () => {
-    const gameTime = useGameTime()
-    const remainingSpaces = useRemainingSpaces()
-
+    const {gameTime, remainingSpaces} = useContext(GameContext)
     return (
         <GameHeadContainer>
             <SpacesLeft>
