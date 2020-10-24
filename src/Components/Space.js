@@ -4,7 +4,7 @@ import { GameContext } from '../Context/GameContext'
 import { Cell } from '../Styles'
 
 const Space = ({ space }) => {
-    const { getAdjacentSpaces, openSpace, openAdjacent, markSpace, gameOver, gameOverProcess } = useContext(GameContext)
+    const { width, getAdjacentSpaces, openSpace, openAdjacent, markSpace, gameOver, gameOverProcess } = useContext(GameContext)
     const [adjacentSpaces] = useState(getAdjacentSpaces(space.row, space.space))
     const [alreadyOpen, setAlreadyOpen] = useState(false)
     
@@ -51,7 +51,7 @@ const Space = ({ space }) => {
         return null
     }
 
-    const cellProps = {space, onContextMenu, onClick}
+    const cellProps = {width, space, onContextMenu, onClick}
     
     return (
         <Cell {...cellProps}>

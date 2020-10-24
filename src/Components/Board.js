@@ -4,6 +4,7 @@ import GameHead from './GameHead'
 import Spaces from './Spaces';
 import { GameContext } from '../Context/GameContext'
 import { Container } from '../Styles'
+import GameWon from './GameWon';
 
 const Board = () => {
     const { gameBoard, gameOver } = useContext(GameContext)
@@ -17,6 +18,7 @@ const Board = () => {
             return (
                 <Container>
                     <GameHead />
+                    <GameWon />
                     <Spaces />
                 </Container>
             )            

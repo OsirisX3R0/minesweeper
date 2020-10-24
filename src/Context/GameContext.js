@@ -17,27 +17,25 @@ const GlobalStyles = createGlobalStyle`
 `
 
 export const GameProvider = ({ children }) => {
-    const [width, setWidth] = useState(8)
-    const [height, setHeight] = useState(8)
-    const [mines, setMines] = useState(10)
+    const [width, setWidth] = useState(3)
+    const [height, setHeight] = useState(3)
+    const [mines, setMines] = useState(3)
     const [gameBoard, setGameBoard] = useState([])
     const [gameStarted, setGameStarted] = useState(false)
     const [openSpaces, setOpenSpaces] = useState(0)
     const [gameWon, setGameWon] = useState(false)
     const [gameOver, setGameOver] = useState(false)
-    const gameTime = useGameTime(gameBoard)
-    const remainingSpaces = useRemainingSpaces(width, height, mines, openSpaces)
+    const [gameTime, stopTime, resetTime] = useGameTime(gameBoard)
+    const [remainingSpaces, emptySpaces] = useRemainingSpaces(width, height, mines, openSpaces)
 
     useEffect(() => {
-        if(gridl(gameBoard).find(s => s.isOpen)) {
+        if (gameStarted || gridl(gameBoard).find(s => s.isOpen)) {
             let spaces = gameBoard.flat().filter(s => s.isOpen).length
             setOpenSpaces(spaces)
         }
-    }, [gameBoard, setOpenSpaces])
+    }, [gameBoard, setOpenSpaces, gameStarted])
 
-    //const getOpenSpaces = useCallback(() => gameBoard.flat().filter(s => s.isOpen).length, [])
-
-    const generateMines = (max, generatedMines = []) => {
+    const generateMines = useCallback((max, generatedMines = []) => {
         for(var i = 1; i <= max; i++) {
             generatedMines.push(
                 `${randomIntFromInterval(1, height)}${randomIntFromInterval(1, width)}`
@@ -49,11 +47,19 @@ export const GameProvider = ({ children }) => {
             generateMines(mines - generatedMines.length, generatedMines)
         }
         return generatedMines;
-    }
+    }, [width, height, mines])
 
     const getAdjacentSpaces = (row, space) => gridl(gameBoard).adjacentCellsAt([space - 1, row - 1])
 
-    const getAdjacentMines = (board, row, space) => {
+    const searchBoard = useCallback((board, row, space) => {
+        return row > 0 && space > 0 && row <= height && space <= width
+            ? board
+                .find((thisRow, i) => thisRow && i === row - 1)
+                .find(thisSpace => thisSpace.row === row && thisSpace.space === space)
+            : { isMine: false }
+    }, [width, height])
+
+    const getAdjacentMines = useCallback((board, row, space) => {
         let topLeft = searchBoard(board, row - 1, space - 1)
         let top = searchBoard(board, row - 1, space)
         let topRight = searchBoard(board, row - 1, space + 1)
@@ -73,15 +79,7 @@ export const GameProvider = ({ children }) => {
             bottom.isMine,
             bottomRight.isMine
         ].filter(s => s).length
-    }
-
-    const searchBoard = (board, row, space) => {
-        return row > 0 && space > 0 && row <= height && space <= width
-            ? board
-                .find((thisRow, i) => thisRow && i === row - 1)
-                .find(thisSpace => thisSpace.row === row && thisSpace.space === space)
-            : { isMine: false }
-    }
+    }, [searchBoard])
 
     const openSpace = (id, adjacent = []) => {
         let mineCount;
@@ -132,7 +130,7 @@ export const GameProvider = ({ children }) => {
         )
     }
     
-    const generateBoard = () => {
+    const generateBoard = useCallback(() => {
         setGameBoard([]);
         var board = [];
         var mineCoords = generateMines(mines);
@@ -166,7 +164,7 @@ export const GameProvider = ({ children }) => {
         console.log(board.map(r => r.map(s => s.isMine ? 'X' : s.mineCount)))
         setGameBoard(board)
         setGameStarted(true)
-    }
+    }, [generateMines, getAdjacentMines, height, width, mines])
 
     const showMines = useCallback(() => {
         setGameBoard(prevBoard => 
@@ -185,9 +183,31 @@ export const GameProvider = ({ children }) => {
     }, [showMines])
 
     const gameWonProcess = useCallback(() => {
+        stopTime()
         setGameOver(false)
+        //setGameStarted(false)
         setGameWon(true)
-    }, [])
+    }, [stopTime])
+
+    useEffect(() => {
+        if (remainingSpaces <= 0 && gameStarted)
+            gameWonProcess()
+    }, [gameWonProcess, remainingSpaces, gameStarted])
+
+    const resetGame = useCallback(() => {
+        setGameOver(false)
+        setGameWon(false)
+        resetTime()
+        generateBoard()
+    }, [generateBoard, resetTime])
+
+    const goToMenu = useCallback(() => {
+        setGameOver(false)
+        setGameWon(false)
+        setGameStarted(false)
+        resetTime()
+        setGameBoard([])
+    }, [resetTime])
 
     return (
         <GameContext.Provider value={{
@@ -204,13 +224,16 @@ export const GameProvider = ({ children }) => {
             gameWon,
             gameTime,
             remainingSpaces,
+            emptySpaces,
             openSpaces,
             openSpace,
             markSpace,
             openAdjacent,
             generateBoard,
             gameOverProcess,
-            gameWonProcess
+            gameWonProcess,
+            resetGame,
+            goToMenu
         }}>
             <GlobalStyles />
             {children}

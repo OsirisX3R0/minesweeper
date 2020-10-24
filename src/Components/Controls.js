@@ -38,7 +38,7 @@ const Controls = () => {
                         onChange={(e) => setMines(+e.target.value)} />
                 </Item>
                 <Item>
-                    <Button onClick={generateBoard}>Start Game</Button>
+                    <Button onClick={() => generateBoard()}>Start Game</Button>
                 </Item>
             </Grid>
         </>

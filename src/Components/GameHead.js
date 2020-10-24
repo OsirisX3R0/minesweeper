@@ -3,11 +3,11 @@ import { GameContext } from '../Context/GameContext'
 import { GameHeadContainer, SpacesLeft, Time } from '../Styles'
 
 const GameHead = () => {
-    const {gameTime, remainingSpaces} = useContext(GameContext)
+    const {gameTime, remainingSpaces, emptySpaces} = useContext(GameContext)
     return (
         <GameHeadContainer>
             <SpacesLeft>
-                {remainingSpaces}
+                {remainingSpaces} / {emptySpaces}
             </SpacesLeft>
             <Time>
                 {gameTime}

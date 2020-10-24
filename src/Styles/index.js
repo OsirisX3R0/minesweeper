@@ -61,21 +61,21 @@ export const Button = styled.button`
     }
 `
 
-export const BoardContainer = styled.div`
+export const BoardTable = styled.table`
     // max-width: 800px;
     // margin: auto;
 `
 
-export const BoardBody = styled.div`
-    display: grid;
+export const BoardBody = styled.tbody`
+    /* display: grid;
     grid-template-columns: repeat(${props => props.width}, 1fr);
-    gap: .25rem;
+    gap: .25rem; */
 `
 
 export const BoardRow = styled.tr``
 
-export const Cell = styled.div`
-    width: 25px;
+export const Cell = styled.td`
+    width: calc(100% / ${props => props.width});
     height: 25px;
     border: 1px solid ${foreground};
     border-radius: 4px;

@@ -1,19 +1,34 @@
-import { useContext, useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 
-import useInterval from "./useInterval";
-import { GameContext } from "../Context/GameContext";
+// import useInterval from "./useInterval";
 
 
 const useGameTime = gameBoard => {
-    // const {  } = useContext(GameContext)
     const [timer, setTimer] = useState(0)
     const [gameTime, setGameTime] = useState("")
+    const interval = useRef(null)
 
-    useInterval(() => {
-        if (gameBoard && gameBoard.length > 0) {
-            setTimer(timer + 1)
-        }
-    }, 1000)   
+    const stopTime = useCallback(() => {
+        clearInterval(interval.current)
+    }, [])
+
+    useEffect(() => {
+        interval.current = setInterval(() => {
+            if (gameBoard && gameBoard.length > 0) {
+                setTimer(timer + 1)
+            }
+        }, 1000)
+
+        return () => stopTime()
+    })
+
+    const resetTime = useCallback(() => setTimer(0), [])
+
+    // useInterval(() => {
+    //     if (gameBoard && gameBoard.length > 0 && !gameWon) {
+    //         setTimer(timer + 1)
+    //     }
+    // }, 1000)   
     
     useEffect(() => {
         const displayTime = () => {
@@ -25,7 +40,7 @@ const useGameTime = gameBoard => {
         displayTime()   
     }, [timer])
 
-    return gameTime
+    return [gameTime, stopTime, resetTime]
 }
 
 export default useGameTime

@@ -1,21 +1,23 @@
 import React, { useContext } from 'react'
 import { GameContext } from '../Context/GameContext'
-import { Button, GameWonContainer, Grid, Header } from '../Styles'
+import { Button, GameWonContainer, Header } from '../Styles'
 
 const GameWon = () => {
-    const { gameWon, width, height, gameTime } = useContext(GameContext)
+    const { gameWon, width, height, gameTime, goToMenu, resetGame } = useContext(GameContext)
 
-    return (
+    const displayGameWon = gameWon && (
         <GameWonContainer>
             <Header>You Win!</Header>
 
             <h3>({width} x {height})</h3>
             <small>Time:</small>
             <div>{gameTime}</div>
-            <Button fill>Play Again</Button>
-            <Button>Menu</Button>
+            <Button fill onClick={() => resetGame()}>Play Again</Button>
+            <Button onClick={() => goToMenu()}>Menu</Button>
         </GameWonContainer>
     )
+
+    return displayGameWon
 }
 
 export default GameWon

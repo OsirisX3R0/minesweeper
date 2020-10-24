@@ -1,19 +1,17 @@
-import { useContext, useEffect, useMemo, useState } from "react"
-import { GameContext } from "../Context/GameContext"
+import { useEffect, useMemo, useState } from "react"
 
 
 const useRemainingSpaces = (width, height, mines, openSpaces) => {
-    // const {  } = useContext(GameContext)
     const spaces = useMemo(() => (width * height) - mines, [width, height, mines])
-    const [remainingSpaces, setRemainingSpaces] = useState('')
+    const [remainingSpaces, setRemainingSpaces] = useState(0)
     const [emptySpaces] = useState(spaces)
     const [spacesLeft] = useState(spaces)
 
     useEffect(() => {
-        setRemainingSpaces(`${spacesLeft - openSpaces}/${emptySpaces}`)
-    }, [spacesLeft, emptySpaces, openSpaces])
+        setRemainingSpaces(spacesLeft - openSpaces)
+    }, [spacesLeft, openSpaces, emptySpaces])
 
-    return remainingSpaces
+    return [remainingSpaces, emptySpaces]
 }
 
 export default useRemainingSpaces
