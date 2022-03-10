@@ -2,7 +2,8 @@ import minesweeper from "minesweeper";
 import { useRef, useState } from "react";
 
 const useBoard = (opts) => {
-  let mineArray = useRef(minesweeper.generateMineArray(opts));
+  let options = useRef(opts);
+  let mineArray = useRef(minesweeper.generateMineArray(options.current));
   let board = useRef(new minesweeper.Board(mineArray.current));
   const [grid, setGrid] = useState(board.current.grid());
   const [boardState, setBoardState] = useState(board.current.state());
@@ -27,7 +28,7 @@ const useBoard = (opts) => {
     getBoardState();
   };
 
-  return { grid, boardState, openCell, cycleCellFlag };
+  return { grid, ...options.current, boardState, openCell, cycleCellFlag };
 };
 
 export default useBoard;
