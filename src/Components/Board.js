@@ -1,14 +1,15 @@
 import React from "react";
-import { BoardStateEnum, CellStateEnum, CellFlagEnum } from "minesweeper";
+import { BoardStateEnum } from "minesweeper";
 import useBoard from "../Hooks/useBoard";
 import { BoardBody, BoardRow, BoardTable, Cell } from "../Styles";
 
 const Board = () => {
-  const { grid, cols, boardState, openCell, cycleCellFlag } = useBoard({
-    rows: 3,
-    cols: 3,
-    mines: 3,
-  });
+  const { grid, cols, boardState, openCell, cycleCellFlag, displayValue } =
+    useBoard({
+      rows: 3,
+      cols: 3,
+      mines: 3,
+    });
 
   const title =
     boardState === BoardStateEnum.WON
@@ -27,28 +28,16 @@ const Board = () => {
       <BoardBody width={cols}>
         {grid.map((row, rowIndex) => (
           <BoardRow key={rowIndex}>
-            {row.map((cell, cellIndex) => {
-              let value =
-                cell.state === CellStateEnum.OPEN
-                  ? cell.isMine
-                    ? "X"
-                    : "O"
-                  : cell.flag === CellFlagEnum.NONE
-                  ? ""
-                  : cell.flag === CellFlagEnum.EXCLAMATION
-                  ? "!"
-                  : "?";
-              return (
-                <Cell
-                  width={cols}
-                  key={cellIndex}
-                  onClick={() => openCell(cell.x, cell.y)}
-                  onContextMenu={(e) => onContextMenu(e, cell)}
-                >
-                  {value}
-                </Cell>
-              );
-            })}
+            {row.map((cell) => (
+              <Cell
+                width={cols}
+                key={`${cell.x}-${cell.y}`}
+                onClick={() => openCell(cell.x, cell.y)}
+                onContextMenu={(e) => onContextMenu(e, cell)}
+              >
+                {displayValue(cell)}
+              </Cell>
+            ))}
           </BoardRow>
         ))}
       </BoardBody>
