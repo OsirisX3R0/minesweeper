@@ -6,9 +6,9 @@ import { BoardBody, BoardRow, BoardTable, Cell } from "../Styles";
 const Board = () => {
   const { grid, cols, boardState, openCell, cycleCellFlag, displayValue } =
     useBoard({
-      rows: 3,
-      cols: 3,
-      mines: 3,
+      rows: 10,
+      cols: 10,
+      mines: 15,
     });
 
   const title =
@@ -30,6 +30,7 @@ const Board = () => {
           <BoardRow key={rowIndex}>
             {row.map((cell) => (
               <Cell
+                cell={cell}
                 width={cols}
                 key={`${cell.x}-${cell.y}`}
                 onClick={() => openCell(cell.x, cell.y)}

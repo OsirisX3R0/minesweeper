@@ -1,5 +1,5 @@
 import styled from "styled-components";
-// import getCellColor from "./helpers/getCellColor";
+import getCellColor from "./helpers/getCellColor";
 import { background, foreground } from "./variables";
 
 export const Header = styled.h1``;
@@ -79,7 +79,7 @@ export const Cell = styled.td`
   height: 25px;
   border: 1px solid ${foreground};
   border-radius: 4px;
-  color: #f5f5f5;
+  color: ${(props) => getCellColor(props.cell)};
   font-weight: bold;
   text-align: center;
   padding: 1.5rem;
