@@ -1,26 +1,20 @@
 import {
   generateMineArray,
   Board,
-  // BoardStateEnum,
   CellStateEnum,
   CellFlagEnum,
 } from "minesweeper";
 import { useRef, useState } from "react";
 
-const generateBoard = (opts) => {
-  let mineArray = generateMineArray(opts);
-  return new Board(mineArray);
-};
-
 const useBoard = (opts) => {
   let options = useRef(opts);
-  // let mineArray = useRef(generateMineArray(options.current));
-  let board = useRef(generateBoard(opts));
+  let mineArray = useRef(generateMineArray(options.current));
+  let board = useRef(new Board(mineArray.current));
   const [grid, setGrid] = useState(board.current.grid());
   const [boardState, setBoardState] = useState(board.current.state());
 
   const renderGrid = () => {
-    setGrid(board.current.grid());
+    setGrid([...board.current.grid()]);
   };
 
   const getBoardState = () => {
@@ -42,7 +36,7 @@ const useBoard = (opts) => {
   const displayValue = (cell) => {
     if (cell.state === CellStateEnum.OPEN) {
       if (cell.isMine) return "X";
-      else return "O";
+      else return cell.numAdjacentMines || "O";
     } else {
       switch (cell.flag) {
         case CellFlagEnum.EXCLAMATION:
