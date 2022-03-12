@@ -1,4 +1,4 @@
-import React, { createContext, useRef, useState } from "react";
+import React, { createContext, useCallback, useRef, useState } from "react";
 import { createGlobalStyle } from "styled-components";
 import {
   generateMineArray,
@@ -74,6 +74,62 @@ export const GameProvider = ({ children }) => {
     }
   };
 
+  const searchBoard = useCallback(
+    (x, y) => {
+      if (x < 0 || y < 0 || x >= cols || y >= rows) return null;
+
+      return grid && grid.length
+        ? grid
+            .find((_, rowIndex) => rowIndex === y)
+            .find((_, cellIndex) => cellIndex === x)
+        : null;
+    },
+    [grid, cols, rows]
+  );
+
+  const allAdjacentFlagged = useCallback(
+    (cell) => {
+      let topLeft = searchBoard(cell.x - 1, cell.y - 1);
+      let top = searchBoard(cell.x, cell.y - 1);
+      let topRight = searchBoard(cell.x + 1, cell.y - 1);
+      let left = searchBoard(cell.x - 1, cell.y);
+      let right = searchBoard(cell.x + 1, cell.y);
+      let bottomLeft = searchBoard(cell.x - 1, cell.y + 1);
+      let bottom = searchBoard(cell.x, cell.y + 1);
+      let bottomRight = searchBoard(cell.x + 1, cell.y + 1);
+
+      let flags = [
+        topLeft &&
+          topLeft.flag !== CellFlagEnum.NONE &&
+          topLeft.state !== CellStateEnum.OPEN,
+        top &&
+          top.flag !== CellFlagEnum.NONE &&
+          top.state !== CellStateEnum.OPEN,
+        topRight &&
+          topRight.flag !== CellFlagEnum.NONE &&
+          topRight.state !== CellStateEnum.OPEN,
+        left &&
+          left.flag !== CellFlagEnum.NONE &&
+          left.state !== CellStateEnum.OPEN,
+        right &&
+          right.flag !== CellFlagEnum.NONE &&
+          right.state !== CellStateEnum.OPEN,
+        bottomLeft &&
+          bottomLeft.flag !== CellFlagEnum.NONE &&
+          bottomLeft.state !== CellStateEnum.OPEN,
+        bottom &&
+          bottom.flag !== CellFlagEnum.NONE &&
+          bottom.state !== CellStateEnum.OPEN,
+        bottomRight &&
+          bottomRight.flag !== CellFlagEnum.NONE &&
+          bottomRight.state !== CellStateEnum.OPEN,
+      ].filter((s) => s).length;
+
+      return cell.numAdjacentMines === flags;
+    },
+    [searchBoard]
+  );
+
   return (
     <GameContext.Provider
       value={{
@@ -89,6 +145,7 @@ export const GameProvider = ({ children }) => {
         openCell,
         cycleCellFlag,
         displayValue,
+        allAdjacentFlagged,
       }}
     >
       <GlobalStyles />

@@ -5,8 +5,14 @@ import { BoardBody, BoardRow, BoardTable, Cell } from "../../Styles";
 import Header from "../header/header";
 
 const Board = () => {
-  const { grid, cols, openCell, cycleCellFlag, displayValue } =
-    useContext(GameContext);
+  const {
+    grid,
+    cols,
+    openCell,
+    cycleCellFlag,
+    displayValue,
+    allAdjacentFlagged,
+  } = useContext(GameContext);
 
   const onContextMenu = (e, cell) => {
     e.preventDefault();
@@ -24,6 +30,7 @@ const Board = () => {
                 key={`${cell.x}-${cell.y}`}
                 onClick={() => openCell(cell.x, cell.y)}
                 onContextMenu={(e) => onContextMenu(e, cell)}
+                allAdjacentFlagged={allAdjacentFlagged(cell)}
               >
                 {displayValue(cell)}
               </Cell>
