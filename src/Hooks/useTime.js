@@ -22,7 +22,7 @@ const useTime = () => {
 
   useEffect(() => {
     stopTime();
-    startTime();
+    // startTime();
 
     return () => stopTime();
   }, [startTime, stopTime]);

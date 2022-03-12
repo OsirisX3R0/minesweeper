@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { GameContext } from "../Context/GameContext";
+import { GameContext } from "../../Context/GameContext";
 
 import {
   BoardBody,
@@ -8,8 +8,8 @@ import {
   Cell,
   Container,
   // Title,
-} from "../Styles";
-import Header from "./header/header";
+} from "../../Styles";
+import Header from "../header/header";
 
 const Board = () => {
   const { grid, cols, openCell, cycleCellFlag, displayValue } =
@@ -42,10 +42,10 @@ const Board = () => {
   ) : null;
 
   return (
-    <Container>
+    <>
       <Header />
       {board}
-    </Container>
+    </>
   );
 };
 

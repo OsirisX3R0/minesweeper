@@ -1,7 +1,16 @@
-import React, { createContext } from "react";
+import React, { createContext, useRef, useState } from "react";
 import { createGlobalStyle } from "styled-components";
+import {
+  generateMineArray,
+  Board,
+  BoardStateEnum,
+  CellStateEnum,
+  CellFlagEnum,
+} from "minesweeper";
+
 import { background, foreground } from "../Styles/variables";
-import useBoard from "../Hooks/useBoard";
+import { Container } from "../Styles";
+// import useBoard from "../Hooks/useBoard";
 
 export const GameContext = createContext();
 
@@ -13,21 +22,95 @@ const GlobalStyles = createGlobalStyle`
     }
 `;
 
+// const optionReducer = (state, action) => {
+//     switch(action.type) {
+//         case 'set_rows':
+//             return {...state, width: action.rows}
+//         case 'set_cols':
+//             return {...state, width: action.cols}
+//         case 'set_mines':
+//             return {...state, width: action.mines}
+//         default:
+//             return state
+//     }
+// }
+
 export const GameProvider = ({ children }) => {
-  const {
-    grid,
-    rows,
-    cols,
-    mines,
-    boardState,
-    openCell,
-    cycleCellFlag,
-    displayValue,
-  } = useBoard({
-    rows: 10,
-    cols: 10,
-    mines: 15,
-  });
+  const [rows, setRows] = useState(3);
+  const [cols, setCols] = useState(3);
+  const [mines, setMines] = useState(3);
+  let mineArray = useRef(null);
+  let board = useRef(null);
+  const [grid, setGrid] = useState([]);
+  const [boardState, setBoardState] = useState([]);
+  //   let [options, dispatchOptions] = useReducer(optionReducer, {
+  //         rows: 10,
+  //         cols: 10,
+  //         mines: 15,
+  //       });
+
+  const generateBoard = () => {
+    mineArray.current = generateMineArray({ rows, cols, mines });
+    board.current = new Board(mineArray.current);
+    setGrid([...board.current.grid()]);
+    setBoardState(board.current.state());
+  };
+  // let mineArray = useRef(generateMineArray(options.current));
+  // let board = useRef(new Board(mineArray.current));
+  //   const [grid, setGrid] = useState(board.current.grid());
+  //   const [boardState, setBoardState] = useState(board.current.state());
+
+  const renderGrid = () => {
+    setGrid([...board.current.grid()]);
+  };
+
+  const getBoardState = () => {
+    setBoardState(board.current.state());
+  };
+
+  const openCell = (x, y) => {
+    board.current.openCell(x, y);
+    renderGrid();
+    getBoardState();
+  };
+
+  const cycleCellFlag = (x, y) => {
+    board.current.cycleCellFlag(x, y);
+    renderGrid();
+    getBoardState();
+  };
+
+  const displayValue = (cell) => {
+    if (boardState === BoardStateEnum.LOST && cell.isMine) return "X";
+    if (cell.state === CellStateEnum.OPEN) {
+      if (cell.isMine) return "X";
+      else return cell.numAdjacentMines || "O";
+    } else {
+      switch (cell.flag) {
+        case CellFlagEnum.EXCLAMATION:
+          return "!";
+        case CellFlagEnum.QUESTION:
+          return "?";
+        default:
+          return "";
+      }
+    }
+  };
+
+  //   const {
+  //     grid,
+  //     rows,
+  //     cols,
+  //     mines,
+  //     boardState,
+  //     openCell,
+  //     cycleCellFlag,
+  //     displayValue,
+  //   } = useBoard({
+  //     rows: 10,
+  //     cols: 10,
+  //     mines: 15,
+  //   });
   // const [width, setWidth] = useState(3)
   // const [height, setHeight] = useState(3)
   // const [mines, setMines] = useState(3)
@@ -224,9 +307,13 @@ export const GameProvider = ({ children }) => {
     <GameContext.Provider
       value={{
         grid,
+        setRows,
         rows,
+        setCols,
         cols,
+        setMines,
         mines,
+        generateBoard,
         boardState,
         openCell,
         cycleCellFlag,
@@ -234,7 +321,7 @@ export const GameProvider = ({ children }) => {
       }}
     >
       <GlobalStyles />
-      {children}
+      <Container>{children}</Container>
     </GameContext.Provider>
   );
 };
