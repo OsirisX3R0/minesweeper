@@ -31,7 +31,6 @@ const Board = () => {
             {row.map((cell) => (
               <Cell
                 cell={cell}
-                width={cols}
                 key={`${cell.x}-${cell.y}`}
                 onClick={() => openCell(cell.x, cell.y)}
                 onContextMenu={(e) => onContextMenu(e, cell)}

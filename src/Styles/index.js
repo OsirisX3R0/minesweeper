@@ -75,7 +75,7 @@ export const BoardBody = styled.tbody`
 export const BoardRow = styled.tr``;
 
 export const Cell = styled.td`
-  width: calc(100% / ${(props) => props.width});
+  width: 25px;
   height: 25px;
   border: 1px solid ${foreground};
   border-radius: 4px;
