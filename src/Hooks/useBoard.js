@@ -1,10 +1,11 @@
+import { useRef, useState } from "react";
 import {
   generateMineArray,
   Board,
+  BoardStateEnum,
   CellStateEnum,
   CellFlagEnum,
 } from "minesweeper";
-import { useRef, useState } from "react";
 
 const useBoard = (opts) => {
   let options = useRef(opts);
@@ -34,6 +35,7 @@ const useBoard = (opts) => {
   };
 
   const displayValue = (cell) => {
+    if (boardState === BoardStateEnum.LOST && cell.isMine) return "X";
     if (cell.state === CellStateEnum.OPEN) {
       if (cell.isMine) return "X";
       else return cell.numAdjacentMines || "O";

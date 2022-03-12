@@ -3,18 +3,17 @@ import { CellStateEnum, CellFlagEnum } from "minesweeper";
 import { foreground } from "../variables";
 
 const getCellColor = (cell) => {
+  if (cell.isMine) {
+    return "darkslategray";
+  }
   if (cell.state === CellStateEnum.CLOSED) {
     switch (cell.flag) {
       case CellFlagEnum.NONE:
-        return "#f5f5f5";
+        return foreground;
       default:
         return "goldenrod";
     }
   } else {
-    if (cell.isMine) {
-      return "darkslategray";
-    }
-
     switch (cell.numAdjacentMines) {
       case 1:
         return "cornflowerblue";
