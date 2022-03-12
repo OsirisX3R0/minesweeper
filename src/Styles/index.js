@@ -111,7 +111,7 @@ export const Cell = styled.td`
   height: 25px;
   border: 1px solid ${foreground};
   border-radius: 4px;
-  color: ${(props) => getCellColor(props.cell, props.allAdjacentFlagged)};
+  color: ${(props) => getCellColor(props.cell, props.adjacentFlags)};
   font-weight: bold;
   text-align: center;
   padding: 1.5rem;

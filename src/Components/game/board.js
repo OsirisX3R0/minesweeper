@@ -11,7 +11,7 @@ const Board = () => {
     openCell,
     cycleCellFlag,
     displayValue,
-    allAdjacentFlagged,
+    getAdjacentFlags,
   } = useContext(GameContext);
 
   const onContextMenu = (e, cell) => {
@@ -30,7 +30,7 @@ const Board = () => {
                 key={`${cell.x}-${cell.y}`}
                 onClick={() => openCell(cell.x, cell.y)}
                 onContextMenu={(e) => onContextMenu(e, cell)}
-                allAdjacentFlagged={allAdjacentFlagged(cell)}
+                adjacentFlags={getAdjacentFlags(cell)}
               >
                 {displayValue(cell)}
               </Cell>

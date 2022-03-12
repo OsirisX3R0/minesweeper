@@ -87,7 +87,7 @@ export const GameProvider = ({ children }) => {
     [grid, cols, rows]
   );
 
-  const allAdjacentFlagged = useCallback(
+  const getAdjacentFlags = useCallback(
     (cell) => {
       let topLeft = searchBoard(cell.x - 1, cell.y - 1);
       let top = searchBoard(cell.x, cell.y - 1);
@@ -98,7 +98,7 @@ export const GameProvider = ({ children }) => {
       let bottom = searchBoard(cell.x, cell.y + 1);
       let bottomRight = searchBoard(cell.x + 1, cell.y + 1);
 
-      let flags = [
+      return [
         topLeft &&
           topLeft.flag !== CellFlagEnum.NONE &&
           topLeft.state !== CellStateEnum.OPEN,
@@ -125,7 +125,7 @@ export const GameProvider = ({ children }) => {
           bottomRight.state !== CellStateEnum.OPEN,
       ].filter((s) => s).length;
 
-      return cell.numAdjacentMines === flags;
+      //   return cell.numAdjacentMines === flags;
     },
     [searchBoard]
   );
@@ -145,7 +145,7 @@ export const GameProvider = ({ children }) => {
         openCell,
         cycleCellFlag,
         displayValue,
-        allAdjacentFlagged,
+        getAdjacentFlags,
       }}
     >
       <GlobalStyles />
