@@ -1,7 +1,15 @@
 import React from "react";
-import { BoardStateEnum } from "minesweeper";
 import useBoard from "../Hooks/useBoard";
-import { BoardBody, BoardRow, BoardTable, Cell } from "../Styles";
+
+import {
+  BoardBody,
+  BoardRow,
+  BoardTable,
+  Cell,
+  Container,
+  // Title,
+} from "../Styles";
+import Header from "./header";
 
 const Board = () => {
   const { grid, cols, boardState, openCell, cycleCellFlag, displayValue } =
@@ -10,13 +18,6 @@ const Board = () => {
       cols: 10,
       mines: 15,
     });
-
-  const title =
-    boardState === BoardStateEnum.WON
-      ? "Victory!"
-      : boardState === BoardStateEnum.LOST
-      ? "Failure..."
-      : "Minesweeper.";
 
   const onContextMenu = (e, cell) => {
     e.preventDefault();
@@ -45,10 +46,10 @@ const Board = () => {
   ) : null;
 
   return (
-    <>
-      <h1>{title}</h1>
+    <Container>
+      <Header boardState={boardState} />
       {board}
-    </>
+    </Container>
   );
 };
 

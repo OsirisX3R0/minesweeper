@@ -2,7 +2,27 @@ import styled from "styled-components";
 import getCellColor from "./helpers/getCellColor";
 import { background, foreground } from "./variables";
 
-export const Header = styled.h1``;
+export const Head = styled.header`
+  background-color: ${background};
+  border-bottom: 1px solid ${foreground};
+  margin-bottom: 25px;
+  position: sticky;
+  top: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: center;
+  grid-auto-flow: row;
+`;
+
+export const Remaining = styled.div``;
+
+export const Title = styled.h1`
+  text-align: center;
+`;
+
+export const Clock = styled.div`
+  text-align: right;
+`;
 
 export const Container = styled.div`
   width: 100%;
