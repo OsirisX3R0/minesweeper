@@ -1,14 +1,7 @@
 import React, { useContext } from "react";
 import { GameContext } from "../../Context/GameContext";
 
-import {
-  BoardBody,
-  BoardRow,
-  BoardTable,
-  Cell,
-  Container,
-  // Title,
-} from "../../Styles";
+import { BoardBody, BoardRow, BoardTable, Cell } from "../../Styles";
 import Header from "../header/header";
 
 const Board = () => {

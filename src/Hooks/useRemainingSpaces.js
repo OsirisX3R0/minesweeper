@@ -3,9 +3,14 @@ import { CellStateEnum } from "minesweeper";
 
 const useRemainingSpaces = (grid, rows, cols, mines) => {
   const spaces = useMemo(() => rows * cols - mines, [rows, cols, mines]);
-  const [total] = useState(spaces);
+  const [total, setTotal] = useState(spaces);
   const [remaining, setRemaining] = useState(spaces);
   const lastOpen = useRef(0);
+
+  useEffect(() => {
+    setTotal(spaces);
+    setRemaining(spaces);
+  }, [spaces]);
 
   useEffect(() => {
     let open =

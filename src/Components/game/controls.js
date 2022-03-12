@@ -1,14 +1,14 @@
 import React, { useContext } from "react";
 
 import { GameContext } from "../../Context/GameContext";
-import { Button, Grid, Header, Input, Item, Label } from "../../Styles";
+import { StartButton, ControlGrid, Input, Item, Label } from "../../Styles";
 
 const Controls = () => {
   const { rows, setRows, cols, setCols, mines, setMines, grid, generateBoard } =
     useContext(GameContext);
 
   const displayControls = !grid.length && (
-    <Grid>
+    <ControlGrid>
       <Item>
         <Label>Width</Label>
         <Input
@@ -33,10 +33,10 @@ const Controls = () => {
           onChange={(e) => setMines(+e.target.value)}
         />
       </Item>
-      <Item>
-        <Button onClick={() => generateBoard()}>Start Game</Button>
+      <Item full>
+        <StartButton onClick={() => generateBoard()}>Start Game</StartButton>
       </Item>
-    </Grid>
+    </ControlGrid>
   );
 
   return displayControls;

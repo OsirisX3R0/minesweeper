@@ -2,6 +2,12 @@ import styled from "styled-components";
 import getCellColor from "./helpers/getCellColor";
 import { background, foreground } from "./variables";
 
+export const ControlGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+`;
+
 export const Head = styled.header`
   background-color: ${background};
   border-bottom: 1px solid ${foreground};
@@ -51,6 +57,7 @@ export const Grid = styled.div`
 
 export const Item = styled.div`
   display: grid;
+  grid-column: ${(props) => (props.full ? "1 / -1" : "span 1")};
 `;
 
 export const Label = styled.label`
@@ -81,6 +88,11 @@ export const Button = styled.button`
   }
 `;
 
+export const StartButton = styled(Button)`
+  width: 100%;
+  grid-column: 1 / -1;
+`;
+
 export const BoardTable = styled.table`
   // max-width: 800px;
   // margin: auto;
@@ -88,7 +100,7 @@ export const BoardTable = styled.table`
 
 export const BoardBody = styled.tbody`
   /* display: grid;
-    grid-template-columns: repeat(${(props) => props.width}, 1fr);
+    grid-template-columns: repeat(25px, 1fr);
     gap: .25rem; */
 `;
 

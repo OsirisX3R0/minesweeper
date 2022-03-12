@@ -31,7 +31,7 @@ const useTime = () => {
     setTime(secondsHumanized(seconds));
   }, [seconds]);
 
-  return { time, startTime, stopTime, resetTime, seconds };
+  return { time, seconds, startTime, stopTime, resetTime };
 };
 
 export default useTime;
