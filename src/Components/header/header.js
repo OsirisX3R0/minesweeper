@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import { BoardStateEnum } from "minesweeper";
 
 import { Head, Title } from "../../Styles";
 import Time from "./time";
 import Spaces from "./spaces";
+import { GameContext } from "../../Context/GameContext";
 
-const Header = ({ grid, rows, cols, mines, boardState }) => {
+const Header = () => {
+  const { boardState } = useContext(GameContext);
   const title =
     boardState === BoardStateEnum.WON
       ? "Victory!"
@@ -15,9 +17,9 @@ const Header = ({ grid, rows, cols, mines, boardState }) => {
 
   return (
     <Head>
-      <Spaces grid={grid} rows={rows} cols={cols} mines={mines} />
+      <Spaces />
       <Title>{title}</Title>
-      <Time boardState={boardState} />
+      <Time />
     </Head>
   );
 };

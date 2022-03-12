@@ -1,5 +1,5 @@
-import React from "react";
-import useBoard from "../Hooks/useBoard";
+import React, { useContext } from "react";
+import { GameContext } from "../Context/GameContext";
 
 import {
   BoardBody,
@@ -12,20 +12,8 @@ import {
 import Header from "./header/header";
 
 const Board = () => {
-  const {
-    grid,
-    rows,
-    cols,
-    mines,
-    boardState,
-    openCell,
-    cycleCellFlag,
-    displayValue,
-  } = useBoard({
-    rows: 10,
-    cols: 10,
-    mines: 15,
-  });
+  const { grid, cols, openCell, cycleCellFlag, displayValue } =
+    useContext(GameContext);
 
   const onContextMenu = (e, cell) => {
     e.preventDefault();
@@ -55,13 +43,7 @@ const Board = () => {
 
   return (
     <Container>
-      <Header
-        grid={grid}
-        rows={rows}
-        cols={cols}
-        mines={mines}
-        boardState={boardState}
-      />
+      <Header />
       {board}
     </Container>
   );

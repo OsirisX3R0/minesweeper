@@ -1,10 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { BoardStateEnum } from "minesweeper";
 
 import useTime from "../../Hooks/useTime";
 import { Clock } from "../../Styles";
+import { GameContext } from "../../Context/GameContext";
 
-const Time = ({ boardState }) => {
+const Time = () => {
+  const { boardState } = useContext(GameContext);
   const { time, stopTime } = useTime();
 
   useEffect(() => {
