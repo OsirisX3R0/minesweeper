@@ -9,15 +9,23 @@ import {
   Container,
   // Title,
 } from "../Styles";
-import Header from "./header";
+import Header from "./header/header";
 
 const Board = () => {
-  const { grid, cols, boardState, openCell, cycleCellFlag, displayValue } =
-    useBoard({
-      rows: 10,
-      cols: 10,
-      mines: 15,
-    });
+  const {
+    grid,
+    rows,
+    cols,
+    mines,
+    boardState,
+    openCell,
+    cycleCellFlag,
+    displayValue,
+  } = useBoard({
+    rows: 10,
+    cols: 10,
+    mines: 15,
+  });
 
   const onContextMenu = (e, cell) => {
     e.preventDefault();
@@ -47,7 +55,13 @@ const Board = () => {
 
   return (
     <Container>
-      <Header boardState={boardState} />
+      <Header
+        grid={grid}
+        rows={rows}
+        cols={cols}
+        mines={mines}
+        boardState={boardState}
+      />
       {board}
     </Container>
   );
