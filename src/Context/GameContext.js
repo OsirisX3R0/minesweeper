@@ -10,11 +10,12 @@ import {
 
 import { background, foreground } from "../Styles/variables";
 import { Container } from "../Styles";
+import useDifficulty from "../Hooks/useDifficulty";
 
 export const GameContext = createContext();
 
 const GlobalStyles = createGlobalStyle`
-    body, input, button {
+    body, input, select, button {
         background-color: ${background};
         color: ${foreground};
         font-family: 'Spartan', sans-serif;
@@ -29,6 +30,13 @@ export const GameProvider = ({ children }) => {
   let board = useRef(null);
   const [grid, setGrid] = useState([]);
   const [boardState, setBoardState] = useState([]);
+  const { difficulty, setDifficulty } = useDifficulty((diff, presets) => {
+    if (diff !== "custom") {
+      setRows(presets.rows);
+      setCols(presets.cols);
+      setMines(presets.mines);
+    }
+  });
 
   const generateBoard = () => {
     mineArray.current = generateMineArray({ rows, cols, mines });
@@ -134,6 +142,8 @@ export const GameProvider = ({ children }) => {
     <GameContext.Provider
       value={{
         grid,
+        difficulty,
+        setDifficulty,
         setRows,
         rows,
         setCols,
