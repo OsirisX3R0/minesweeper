@@ -70,9 +70,15 @@ export const Input = styled.input`
   padding: 0.5rem;
 `;
 
+export const Select = styled.select`
+  border: 1px solid ${foreground};
+  border-radius: 5px;
+  padding: 0.5rem;
+`;
+
 export const Button = styled.button`
-  background-color: ${(props) => (props.fill ? foreground : background)};
-  color: ${(props) => (props.fill ? background : foreground)};
+  background-color: ${(props) => (props.fill ? background : foreground)};
+  color: ${(props) => (props.fill ? foreground : background)};
   border: 1px solid ${(props) => (props.fill ? background : foreground)};
   font-weight: bold;
   text-transform: uppercase;
@@ -82,8 +88,8 @@ export const Button = styled.button`
   transition: all 0.2s;
 
   &:hover {
-    background-color: ${(props) => (props.fill ? background : foreground)};
-    color: ${(props) => (props.fill ? foreground : background)};
+    background-color: ${(props) => (props.fill ? foreground : background)};
+    color: ${(props) => (props.fill ? background : foreground)};
     cursor: pointer;
   }
 `;
