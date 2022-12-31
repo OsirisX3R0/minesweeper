@@ -112,7 +112,6 @@ export const StartButton = styled(Button)`
 export const ToggleButton = styled(Button)`
   width: 75px;
   height: 75px;
-  border-bottom: 1px solid ${(props) => (props.fill ? background : foreground)};
   font-size: 1.25rem;
   display: flex;
   justify-content: center;
