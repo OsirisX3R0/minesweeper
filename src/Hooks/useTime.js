@@ -7,9 +7,11 @@ const useTime = () => {
   const interval = useRef(null);
 
   const startTime = useCallback(() => {
-    interval.current = setInterval(() => {
-      setSeconds((prevSeconds) => prevSeconds + 1);
-    }, 1000);
+    if (!interval || !interval.current) {
+      interval.current = setInterval(() => {
+        setSeconds((prevSeconds) => prevSeconds + 1);
+      }, 1000);
+    }
   }, []);
 
   const resetTime = useCallback(() => {
@@ -22,7 +24,6 @@ const useTime = () => {
 
   useEffect(() => {
     stopTime();
-    // startTime();
 
     return () => stopTime();
   }, [startTime, stopTime]);
