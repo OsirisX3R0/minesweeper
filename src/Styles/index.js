@@ -28,6 +28,7 @@ export const Foot = styled.footer`
   top: 0;
   display: flex;
   justify-content: space-around;
+  align-items: center;
 `;
 
 export const Remaining = styled.div``;
@@ -148,6 +149,14 @@ export const GameWonContainer = styled.div`
   text-align: center;
 `;
 
+export const FlagText = styled.span`
+  color: ${(props) => (props.selected ? "cornflowerblue" : foreground)};
+`;
+
+export const OpenText = styled.span`
+  color: ${(props) => (props.selected ? "forestgreen" : foreground)};
+`;
+
 export const SwitchOuter = styled.label`
   position: relative;
   display: inline-block;
@@ -159,23 +168,10 @@ export const SwitchInput = styled.input`
   opacity: 0;
   width: 0;
   height: 0;
-
-  // &:checked + .slider {
-  //   background-color: #2196F3;
-  // }
-
-  // &:focus + .slider {
-  //   box-shadow: 0 0 1px #2196F3;
-  // }
-
-  // &:checked + .slider:before {
-  //   -webkit-transform: translateX(26px);
-  //   -ms-transform: translateX(26px);
-  //   transform: translateX(26px);
-  // }
 `;
 
 export const SwitchSlider = styled.span`
+  border: 1px solid ${foreground};
   border-radius: 34px;
   position: absolute;
   cursor: pointer;
@@ -183,19 +179,34 @@ export const SwitchSlider = styled.span`
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #ccc;
+  background-color: ${background};
   -webkit-transition: 0.4s;
   transition: 0.4s;
+
+  input:checked + & {
+    background-color: ${background};
+  }
+
+  input:focus + & {
+    box-shadow: 0 0 1px #2196f3;
+  }
+
+  input:checked + &:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
 
   &:before {
     border-radius: 50%;
     position: absolute;
     content: "";
-    height: 26px;
-    width: 26px;
+    height: 23px;
+    width: 23px;
     left: 4px;
     bottom: 4px;
-    background-color: white;
+    background-color: ${(props) =>
+      props.checked ? "forestgreen" : "cornflowerblue"};
     -webkit-transition: 0.4s;
     transition: 0.4s;
   }

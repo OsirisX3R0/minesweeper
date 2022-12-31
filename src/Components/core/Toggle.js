@@ -1,23 +1,30 @@
 import React, { useContext } from "react";
-import { ToggleButton } from "../../Styles";
+import {
+  ToggleButton,
+  SwitchOuter,
+  SwitchInput,
+  SwitchSlider,
+  FlagText,
+  OpenText,
+} from "../../Styles";
 import { GameContext } from "../../Context/GameContext";
 
 const Toggle = () => {
   const { mode, setMode } = useContext(GameContext);
   return (
     <>
-      <ToggleButton fill={mode === "open" || 0} onClick={() => setMode("flag")}>
-        !
-      </ToggleButton>
-      <ToggleButton fill={mode === "flag" || 0} onClick={() => setMode("open")}>
-        O
-      </ToggleButton>
-      {/* <span>flag</span>
+      <FlagText selected={mode === "flag"}>flag</FlagText>
       <SwitchOuter>
-        <SwitchInput type="checkbox" checked={checked} />
-        <SwitchSlider />
+        <SwitchInput
+          type="checkbox"
+          checked={mode === "open"}
+          onChange={() =>
+            setMode((prevMode) => (prevMode === "open" ? "flag" : "open"))
+          }
+        />
+        <SwitchSlider checked={mode === "open"} />
       </SwitchOuter>
-      <span>open</span> */}
+      <OpenText selected={mode === "open"}>open</OpenText>
     </>
   );
 };
