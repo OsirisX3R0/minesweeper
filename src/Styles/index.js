@@ -20,6 +20,16 @@ export const Head = styled.header`
   grid-auto-flow: row;
 `;
 
+export const Foot = styled.footer`
+  background-color: ${background};
+  border-top: 1px solid ${foreground};
+  padding-top: 0.5rem;
+  position: sticky;
+  top: 0;
+  display: flex;
+  justify-content: space-around;
+`;
+
 export const Remaining = styled.div``;
 
 export const Title = styled.h1`
@@ -99,6 +109,15 @@ export const StartButton = styled(Button)`
   grid-column: 1 / -1;
 `;
 
+export const ToggleButton = styled(Button)`
+  width: 75px;
+  height: 75px;
+  font-size: 1.25rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 export const BoardTable = styled.table`
   // max-width: 800px;
   // margin: auto;
@@ -127,4 +146,57 @@ export const GameWonContainer = styled.div`
   width: 100%;
   display: grid;
   text-align: center;
+`;
+
+export const SwitchOuter = styled.label`
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+`;
+
+export const SwitchInput = styled.input`
+  opacity: 0;
+  width: 0;
+  height: 0;
+
+  // &:checked + .slider {
+  //   background-color: #2196F3;
+  // }
+
+  // &:focus + .slider {
+  //   box-shadow: 0 0 1px #2196F3;
+  // }
+
+  // &:checked + .slider:before {
+  //   -webkit-transform: translateX(26px);
+  //   -ms-transform: translateX(26px);
+  //   transform: translateX(26px);
+  // }
+`;
+
+export const SwitchSlider = styled.span`
+  border-radius: 34px;
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+
+  &:before {
+    border-radius: 50%;
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
+  }
 `;

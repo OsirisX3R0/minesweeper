@@ -9,11 +9,11 @@ import useBoard from "../Hooks/useBoard";
 export const GameContext = createContext();
 
 const GlobalStyles = createGlobalStyle`
-    body, input, select, button {
-        background-color: ${background};
-        color: ${foreground};
-        font-family: 'Spartan', sans-serif;
-    }
+  body, input, select, button {
+      background-color: ${background};
+      color: ${foreground};
+      font-family: 'Spartan', sans-serif;
+  }
 `;
 
 export const GameProvider = ({ children }) => {

@@ -3,6 +3,7 @@ import { GameContext } from "../../Context/GameContext";
 
 import { BoardBody, BoardRow, BoardTable, Cell } from "../../Styles";
 import Header from "../header/header";
+import Footer from "../footer/Footer";
 
 const Board = () => {
   const {
@@ -45,6 +46,7 @@ const Board = () => {
     <>
       <Header />
       {board}
+      <Footer />
     </>
   );
 };
