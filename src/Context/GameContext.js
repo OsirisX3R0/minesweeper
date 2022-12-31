@@ -5,6 +5,7 @@ import { background, foreground } from "../Styles/variables";
 import { Container } from "../Styles";
 import useDifficulty from "../Hooks/useDifficulty";
 import useBoard from "../Hooks/useBoard";
+import Layout from "../Components/layout";
 
 export const GameContext = createContext();
 
@@ -65,7 +66,7 @@ export const GameProvider = ({ children }) => {
       }}
     >
       <GlobalStyles />
-      <Container>{children}</Container>
+      <Layout>{children}</Layout>
     </GameContext.Provider>
   );
 };

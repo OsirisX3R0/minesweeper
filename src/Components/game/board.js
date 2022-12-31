@@ -2,8 +2,8 @@ import React, { useContext } from "react";
 import { GameContext } from "../../Context/GameContext";
 
 import { BoardBody, BoardRow, BoardTable, Cell } from "../../Styles";
-import Header from "../header/header";
-import Footer from "../footer/Footer";
+import Header from "../layout/header/header";
+import Footer from "../layout/Footer";
 
 const Board = () => {
   const {
@@ -51,7 +51,6 @@ const Board = () => {
 
   return (
     <>
-      <Header />
       {board}
       <Footer />
     </>

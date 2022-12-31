@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
-import { GameContext } from "../../Context/GameContext";
+import { GameContext } from "../../../Context/GameContext";
 
-import useRemainingSpaces from "../../Hooks/useRemainingSpaces";
-import { Remaining } from "../../Styles";
+import useRemainingSpaces from "../../../Hooks/useRemainingSpaces";
+import { Remaining } from "../../../Styles";
 
 const Spaces = () => {
   const { grid, rows, cols, mines } = useContext(GameContext);

@@ -21,12 +21,14 @@ export const Head = styled.header`
   background-color: ${background};
   border-bottom: 1px solid ${foreground};
   margin-bottom: 25px;
-  position: sticky;
+  position: absolute;
   top: 0;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  // grid-template-columns: repeat(3, 1fr);
   align-items: center;
-  grid-auto-flow: row;
+  // grid-auto-flow: row;
 `;
 
 export const Remaining = styled.div``;
@@ -54,7 +56,7 @@ export const Foot = styled.footer`
   background-color: ${background};
   border-top: 1px solid ${foreground};
   padding: 0.75rem;
-  position: sticky;
+  position: absolute;
   bottom: 0;
   display: flex;
   justify-content: space-around;
