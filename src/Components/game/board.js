@@ -16,7 +16,12 @@ const Board = () => {
     getAdjacentFlags,
   } = useContext(GameContext);
 
-  const handleClick = (x, y) => {
+  const onContextMenu = (e, { x, y }) => {
+    e.preventDefault();
+    cycleCellFlag(x, y);
+  };
+
+  const handleTouch = (x, y) => {
     if (mode === "open") openCell(x, y);
     else cycleCellFlag(x, y);
   };
@@ -30,7 +35,9 @@ const Board = () => {
               <Cell
                 cell={cell}
                 key={`${cell.x}-${cell.y}`}
-                onClick={() => handleClick(cell.x, cell.y)}
+                onTouchStart={() => handleTouch(cell.x, cell.y)}
+                onClick={() => openCell(cell.x, cell.y)}
+                onContextMenu={(e) => onContextMenu(e, cell)}
                 adjacentFlags={getAdjacentFlags(cell)}
               >
                 {displayValue(cell)}
