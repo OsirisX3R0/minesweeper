@@ -8,6 +8,7 @@ import {
 } from "minesweeper";
 
 const useBoard = () => {
+  const [mode, setMode] = useState("open");
   const [rows, setRows] = useState(10);
   const [cols, setCols] = useState(10);
   const [mines, setMines] = useState(25);
@@ -116,6 +117,8 @@ const useBoard = () => {
 
   return {
     grid,
+    mode,
+    setMode,
     setRows,
     rows,
     setCols,

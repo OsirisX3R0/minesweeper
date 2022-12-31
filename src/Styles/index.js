@@ -89,7 +89,7 @@ export const Select = styled.select`
 export const Button = styled.button`
   background-color: ${(props) => (props.fill ? background : foreground)};
   color: ${(props) => (props.fill ? foreground : background)};
-  border: 1px solid ${(props) => (props.fill ? background : foreground)};
+  border: 1px solid ${foreground};
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 0.25rem;
@@ -112,6 +112,7 @@ export const StartButton = styled(Button)`
 export const ToggleButton = styled(Button)`
   width: 75px;
   height: 75px;
+  border-bottom: 1px solid ${(props) => (props.fill ? background : foreground)};
   font-size: 1.25rem;
   display: flex;
   justify-content: center;

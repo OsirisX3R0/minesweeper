@@ -8,6 +8,7 @@ import Footer from "../footer/Footer";
 const Board = () => {
   const {
     grid,
+    mode,
     cols,
     openCell,
     cycleCellFlag,
@@ -15,9 +16,9 @@ const Board = () => {
     getAdjacentFlags,
   } = useContext(GameContext);
 
-  const onContextMenu = (e, cell) => {
-    e.preventDefault();
-    cycleCellFlag(cell.x, cell.y);
+  const handleClick = (x, y) => {
+    if (mode === "open") openCell(x, y);
+    else cycleCellFlag(x, y);
   };
 
   const board = grid.length ? (
@@ -29,8 +30,7 @@ const Board = () => {
               <Cell
                 cell={cell}
                 key={`${cell.x}-${cell.y}`}
-                onClick={() => openCell(cell.x, cell.y)}
-                onContextMenu={(e) => onContextMenu(e, cell)}
+                onClick={() => handleClick(cell.x, cell.y)}
                 adjacentFlags={getAdjacentFlags(cell)}
               >
                 {displayValue(cell)}

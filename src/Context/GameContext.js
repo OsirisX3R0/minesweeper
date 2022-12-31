@@ -19,6 +19,8 @@ const GlobalStyles = createGlobalStyle`
 export const GameProvider = ({ children }) => {
   const {
     grid,
+    mode,
+    setMode,
     rows,
     setRows,
     cols,
@@ -46,6 +48,8 @@ export const GameProvider = ({ children }) => {
         grid,
         difficulty,
         setDifficulty,
+        mode,
+        setMode,
         setRows,
         rows,
         setCols,
