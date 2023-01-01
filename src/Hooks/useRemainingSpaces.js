@@ -1,7 +1,10 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useContext, useEffect, useMemo, useRef, useState } from "react";
 import { CellStateEnum } from "minesweeper";
 
-const useRemainingSpaces = (grid, rows, cols, mines) => {
+import { GameContext } from "../Context/GameContext";
+
+const useRemainingSpaces = () => {
+  const { grid, rows, cols, mines } = useContext(GameContext);
   const spaces = useMemo(() => rows * cols - mines, [rows, cols, mines]);
   const [total, setTotal] = useState(spaces);
   const [remaining, setRemaining] = useState(spaces);
@@ -32,16 +35,6 @@ const useRemainingSpaces = (grid, rows, cols, mines) => {
   }, [grid, total]);
 
   return [remaining, total];
-  // const spaces = useMemo(() => (width * height) - mines, [width, height, mines])
-  // const [remainingSpaces, setRemainingSpaces] = useState(0)
-  // const [emptySpaces] = useState(spaces)
-  // const [spacesLeft] = useState(spaces)
-
-  // useEffect(() => {
-  //     setRemainingSpaces(spacesLeft - openSpaces)
-  // }, [spacesLeft, openSpaces, emptySpaces])
-
-  // return [remainingSpaces, emptySpaces]
 };
 
 export default useRemainingSpaces;

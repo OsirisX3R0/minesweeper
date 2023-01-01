@@ -19,12 +19,12 @@ const DIFFICULTY_PRESETS = {
 };
 
 const useDifficulty = (callback) => {
-  const [difficulty, setDifficulty] = useState("easy");
+  const [difficulty, setDifficulty] = useState("medium");
   const difficultyChangeCallback = useCallback(callback, []);
 
   useEffect(() => {
-    const presets = DIFFICULTY_PRESETS[difficulty];
-    difficultyChangeCallback(difficulty, presets);
+    if (difficulty !== "custom")
+      difficultyChangeCallback(DIFFICULTY_PRESETS[difficulty]);
   }, [difficulty, difficultyChangeCallback]);
 
   return { difficulty, setDifficulty };

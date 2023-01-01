@@ -41,12 +41,10 @@ export const GameProvider = ({ children }) => {
     displayValue,
     getAdjacentFlags,
   } = useBoard();
-  const { difficulty, setDifficulty } = useDifficulty((diff, presets) => {
-    if (diff !== "custom") {
-      setRows(presets.rows);
-      setCols(presets.cols);
-      setMines(presets.mines);
-    }
+  const { difficulty, setDifficulty } = useDifficulty((presets) => {
+    setRows(presets.rows);
+    setCols(presets.cols);
+    setMines(presets.mines);
   });
 
   return (
