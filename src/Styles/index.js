@@ -8,7 +8,7 @@ import { background, foreground } from "./variables";
 
 export const ControlGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, 250px);
   gap: 10px;
 `;
 
@@ -21,7 +21,7 @@ export const Head = styled.header`
   background-color: ${background};
   border-bottom: 1px solid ${foreground};
   padding: 0.75rem 0.5rem;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   display: flex;
@@ -63,7 +63,7 @@ export const Foot = styled.footer`
   background-color: ${background};
   border-top: 1px solid ${foreground};
   padding: 0.75rem 0.5rem;
-  position: absolute;
+  position: fixed;
   bottom: 0;
   left: 0;
   display: flex;

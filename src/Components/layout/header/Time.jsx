@@ -8,16 +8,19 @@ import { GameContext } from "../../../Context/GameContext";
 
 const Time = () => {
   const { grid, boardState } = useContext(GameContext);
-  const { time, seconds, startTime, stopTime } = useTime();
+  const { time, seconds, startTime, stopTime, resetTime } = useTime();
 
   useEffect(() => {
     if (!seconds && grid.length) startTime();
   }, [seconds, grid, startTime]);
 
   useEffect(() => {
-    if (boardState === BoardStateEnum.WON || boardState === BoardStateEnum.LOST)
+    if (//!boardState || 
+      boardState === BoardStateEnum.WON || boardState === BoardStateEnum.LOST)
       stopTime();
-  }, [boardState, stopTime]);
+    
+    // if (!boardState) resetTime()
+  }, [boardState, stopTime, resetTime]);
 
   return (
     <Clock>
