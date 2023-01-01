@@ -6,8 +6,9 @@ import Toggle from "../core/Toggle";
 import { GameContext } from "../../Context/GameContext";
 
 const Footer = () => {
-  const { mode } = useContext(GameContext);
-  return (
+  const { mode, boardState } = useContext(GameContext);
+
+  const footer = boardState !== null ? (
     <Foot>
       <FaArrowLeft />
       <ToggleContainer>
@@ -16,7 +17,9 @@ const Footer = () => {
         <OpenText selected={mode === "open"}>open</OpenText>
       </ToggleContainer>
     </Foot>
-  );
+  ) : null;
+
+  return footer
 };
 
 export default Footer;

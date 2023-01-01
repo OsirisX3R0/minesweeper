@@ -15,7 +15,7 @@ const useBoard = () => {
   let mineArray = useRef(null);
   let board = useRef(null);
   const [grid, setGrid] = useState([]);
-  const [boardState, setBoardState] = useState(BoardStateEnum.PRISTINE);
+  const [boardState, setBoardState] = useState(null);
 
   const generateBoard = () => {
     mineArray.current = generateMineArray({ rows, cols, mines });
