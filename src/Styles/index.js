@@ -20,9 +20,10 @@ export const Head = styled.header`
   width: 100%;
   background-color: ${background};
   border-bottom: 1px solid ${foreground};
-  margin-bottom: 25px;
+  padding: 0.75rem 0.5rem;
   position: absolute;
   top: 0;
+  left: 0;
   display: flex;
   gap: 1rem;
   justify-content: space-between;
@@ -34,7 +35,9 @@ export const Head = styled.header`
 export const Remaining = styled.div``;
 
 export const Title = styled.h1`
+  font-size: 1.8rem;
   text-align: center;
+  margin: 0;
 `;
 
 export const Clock = styled.div`
@@ -55,11 +58,19 @@ export const Foot = styled.footer`
   width: 100%;
   background-color: ${background};
   border-top: 1px solid ${foreground};
-  padding: 0.75rem;
+  padding: 0.75rem 0.5rem;
   position: absolute;
   bottom: 0;
+  left: 0;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const ToggleContainer = styled.div`
+  display: flex;
+  gap: 0.2rem;
+  justify-content: center;
   align-items: center;
 `;
 
@@ -73,8 +84,9 @@ export const OpenText = styled.span`
 
 export const Container = styled.div`
   width: 100%;
-  margin-top: 2rem;
-  display: grid;
+  margin-top: 5rem;
+  display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 `;
@@ -118,6 +130,9 @@ export const Cell = styled.td`
   font-weight: bold;
   text-align: center;
   padding: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const GameWonContainer = styled.div`
@@ -189,8 +204,8 @@ export const ToggleButton = styled(Button)`
 export const SwitchOuter = styled.label`
   position: relative;
   display: inline-block;
-  width: 60px;
-  height: 34px;
+  width: 36px;
+  height: 20px;
 `;
 
 export const SwitchInput = styled.input`
@@ -221,22 +236,36 @@ export const SwitchSlider = styled.span`
   }
 
   input:checked + &:before {
-    -webkit-transform: translateX(26px);
-    -ms-transform: translateX(26px);
-    transform: translateX(26px);
+    -webkit-transform: translateX(18px);
+    -ms-transform: translateX(18px);
+    transform: translateX(18px);
   }
 
   &:before {
     border-radius: 50%;
     position: absolute;
     content: "";
-    height: 23px;
-    width: 23px;
-    left: 4px;
-    bottom: 4px;
+    height: 12px;
+    width: 12px;
+    left: 2px;
+    bottom: 3px;
     background-color: ${(props) =>
       props.checked ? "forestgreen" : "cornflowerblue"};
     -webkit-transition: 0.4s;
     transition: 0.4s;
   }
+`;
+
+//*******//
+// UTILS //
+//*******//
+
+export const MarginLeft = styled.span`
+  display: inline-block;
+  margin-left: ${(props) => props.amount};
+`;
+
+export const MarginRight = styled.span`
+  display: inline-block;
+  margin-right: ${(props) => props.amount};
 `;

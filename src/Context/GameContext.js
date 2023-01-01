@@ -2,7 +2,6 @@ import React, { createContext } from "react";
 import { createGlobalStyle } from "styled-components";
 
 import { background, foreground } from "../Styles/variables";
-import { Container } from "../Styles";
 import useDifficulty from "../Hooks/useDifficulty";
 import useBoard from "../Hooks/useBoard";
 import Layout from "../Components/layout";
@@ -10,10 +9,17 @@ import Layout from "../Components/layout";
 export const GameContext = createContext();
 
 const GlobalStyles = createGlobalStyle`
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;  
+  }
+
   body, input, select, button {
       background-color: ${background};
       color: ${foreground};
       font-family: 'Spartan', sans-serif;
+      font-size: 12px;
   }
 `;
 

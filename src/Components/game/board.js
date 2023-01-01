@@ -1,9 +1,7 @@
-import React, { useContext } from "react";
-import { GameContext } from "../../Context/GameContext";
+import React, { useContext, useRef } from "react";
 
+import { GameContext } from "../../Context/GameContext";
 import { BoardBody, BoardRow, BoardTable, Cell } from "../../Styles";
-import Header from "../layout/header/header";
-import Footer from "../layout/Footer";
 
 const Board = () => {
   const {
@@ -15,15 +13,24 @@ const Board = () => {
     displayValue,
     getAdjacentFlags,
   } = useContext(GameContext);
+  const cellRef = useRef();
 
   const onContextMenu = (e, { x, y }) => {
     e.preventDefault();
     cycleCellFlag(x, y);
   };
 
-  const handleTouch = (x, y) => {
-    if (mode === "open") openCell(x, y);
-    else cycleCellFlag(x, y);
+  const handleTouch = (cell, x, y) => {
+    let moved = false;
+    cell.current.addEventListener("ontouchmove", () => {
+      moved = true;
+    });
+    cell.current.addEventListener("ontouchend", () => {
+      if (!moved) {
+        if (mode === "open") openCell(x, y);
+        else cycleCellFlag(x, y);
+      }
+    });
   };
 
   const board = grid.length ? (
@@ -33,9 +40,10 @@ const Board = () => {
           <BoardRow key={rowIndex}>
             {row.map((cell) => (
               <Cell
+                ref={cellRef}
                 cell={cell}
                 key={`${cell.x}-${cell.y}`}
-                onTouchStart={() => handleTouch(cell.x, cell.y)}
+                onTouchStart={() => handleTouch(cellRef, cell.x, cell.y)}
                 onClick={() => openCell(cell.x, cell.y)}
                 onContextMenu={(e) => onContextMenu(e, cell)}
                 adjacentFlags={getAdjacentFlags(cell)}
@@ -49,12 +57,7 @@ const Board = () => {
     </BoardTable>
   ) : null;
 
-  return (
-    <>
-      {board}
-      <Footer />
-    </>
-  );
+  return board;
 };
 
 export default Board;

@@ -1,8 +1,9 @@
 import React, { useContext } from "react";
-import { GameContext } from "../../../Context/GameContext";
+import { FaRegSquare } from "react-icons/fa";
 
+import { GameContext } from "../../../Context/GameContext";
 import useRemainingSpaces from "../../../Hooks/useRemainingSpaces";
-import { Remaining } from "../../../Styles";
+import { MarginRight, Remaining } from "../../../Styles";
 
 const Spaces = () => {
   const { grid, rows, cols, mines } = useContext(GameContext);
@@ -10,6 +11,9 @@ const Spaces = () => {
 
   return (
     <Remaining>
+      <MarginRight amount="0.25rem">
+        <FaRegSquare />
+      </MarginRight>
       {remaining}/{total}
     </Remaining>
   );
