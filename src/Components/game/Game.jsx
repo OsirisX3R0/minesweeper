@@ -1,6 +1,6 @@
 import React from "react";
-import Board from "./board";
-import Controls from "./controls";
+import Board from "./Board";
+import Controls from "./Controls";
 
 const Game = () => (
   <>

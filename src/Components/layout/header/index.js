@@ -2,8 +2,8 @@ import React, { useContext } from "react";
 import { BoardStateEnum } from "minesweeper";
 
 import { Head, Title } from "../../../Styles";
-import Time from "./time";
-import Spaces from "./spaces";
+import Time from "./Time";
+import Spaces from "./Spaces";
 import { GameContext } from "../../../Context/GameContext";
 
 const Header = () => {

@@ -1,6 +1,6 @@
 import React from "react";
 
-import Game from "./Components/game/game";
+import Game from "./Components/game/Game";
 import "./App.scss";
 import { GameProvider } from "./Context/GameContext";
 
