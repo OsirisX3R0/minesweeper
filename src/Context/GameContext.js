@@ -34,18 +34,28 @@ export const GameProvider = ({ children }) => {
     setCols,
     mines,
     setMines,
+    isOpenMode,
+    isFlagMode,
     generateBoard,
+    clearBoard,
     boardState,
     openCell,
     cycleCellFlag,
     displayValue,
     getAdjacentFlags,
   } = useBoard();
-  const { difficulty, setDifficulty } = useDifficulty((presets) => {
-    setRows(presets.rows);
-    setCols(presets.cols);
-    setMines(presets.mines);
-  });
+  const { difficulty, setDifficulty, resetDifficulty } = useDifficulty(
+    (presets) => {
+      setRows(presets.rows);
+      setCols(presets.cols);
+      setMines(presets.mines);
+    }
+  );
+
+  const clearGame = () => {
+    clearBoard();
+    resetDifficulty();
+  };
 
   return (
     <GameContext.Provider
@@ -54,6 +64,8 @@ export const GameProvider = ({ children }) => {
         difficulty,
         setDifficulty,
         mode,
+        isOpenMode,
+        isFlagMode,
         setMode,
         setRows,
         rows,
@@ -67,6 +79,7 @@ export const GameProvider = ({ children }) => {
         cycleCellFlag,
         displayValue,
         getAdjacentFlags,
+        clearGame,
       }}
     >
       <GlobalStyles />

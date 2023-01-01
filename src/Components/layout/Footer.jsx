@@ -6,15 +6,15 @@ import Toggle from "../core/Toggle";
 import { GameContext } from "../../Context/GameContext";
 
 const Footer = () => {
-  const { mode, boardState } = useContext(GameContext);
+  const { boardState, clearGame,isOpenMode, isFlagMode } = useContext(GameContext);
 
   const footer = boardState !== null ? (
     <Foot>
-      <FaArrowLeft />
+      <FaArrowLeft onClick={clearGame} />
       <ToggleContainer>
-        <FlagText selected={mode === "flag"}>flag</FlagText>
+        <FlagText selected={isFlagMode}>flag</FlagText>
         <Toggle />
-        <OpenText selected={mode === "open"}>open</OpenText>
+        <OpenText selected={isOpenMode}>open</OpenText>
       </ToggleContainer>
     </Foot>
   ) : null;

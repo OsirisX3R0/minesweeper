@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 
+const DIFFICULTY_DEFAULT = "medium";
 const DIFFICULTY_PRESETS = {
   easy: {
     rows: 8,
@@ -19,7 +20,7 @@ const DIFFICULTY_PRESETS = {
 };
 
 const useDifficulty = (callback) => {
-  const [difficulty, setDifficulty] = useState("medium");
+  const [difficulty, setDifficulty] = useState(DIFFICULTY_DEFAULT);
   const difficultyChangeCallback = useCallback(callback, []);
 
   useEffect(() => {
@@ -27,7 +28,9 @@ const useDifficulty = (callback) => {
       difficultyChangeCallback(DIFFICULTY_PRESETS[difficulty]);
   }, [difficulty, difficultyChangeCallback]);
 
-  return { difficulty, setDifficulty };
+  const resetDifficulty = () => setDifficulty(DIFFICULTY_DEFAULT);
+
+  return { difficulty, setDifficulty, resetDifficulty };
 };
 
 export default useDifficulty;

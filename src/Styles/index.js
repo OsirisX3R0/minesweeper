@@ -32,16 +32,20 @@ export const Head = styled.header`
   // grid-auto-flow: row;
 `;
 
-export const Remaining = styled.div``;
+export const HeadSection = styled.div`
+  font-size: 0.6rem;
+`;
+
+export const Remaining = styled(HeadSection)``;
+
+export const Clock = styled(HeadSection)`
+  text-align: right;
+`;
 
 export const Title = styled.h1`
   font-size: 1.8rem;
   text-align: center;
   margin: 0;
-`;
-
-export const Clock = styled.div`
-  text-align: right;
 `;
 
 export const GameHeadContainer = styled.div`

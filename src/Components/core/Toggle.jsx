@@ -3,17 +3,17 @@ import { SwitchOuter, SwitchInput, SwitchSlider } from "../../Styles";
 import { GameContext } from "../../Context/GameContext";
 
 const Toggle = () => {
-  const { mode, setMode } = useContext(GameContext);
+  const { setMode,isOpenMode } = useContext(GameContext);
   return (
     <SwitchOuter>
       <SwitchInput
         type="checkbox"
-        checked={mode === "open"}
+        checked={isOpenMode}
         onChange={() =>
           setMode((prevMode) => (prevMode === "open" ? "flag" : "open"))
         }
       />
-      <SwitchSlider checked={mode === "open"} />
+      <SwitchSlider checked={isOpenMode} />
     </SwitchOuter>
   );
 };

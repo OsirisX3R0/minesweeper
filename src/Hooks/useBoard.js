@@ -1,4 +1,4 @@
-import { useRef, useState, useCallback } from "react";
+import { useRef, useState, useCallback, useMemo } from "react";
 import {
   generateMineArray,
   Board,
@@ -17,6 +17,11 @@ const useBoard = () => {
   const [grid, setGrid] = useState([]);
   const [boardState, setBoardState] = useState(null);
 
+  const [isOpenMode, isFlagMode] = useMemo(
+    () => [mode === "open", mode === "flag"],
+    [mode]
+  );
+
   const generateBoard = () => {
     mineArray.current = generateMineArray({ rows, cols, mines });
     board.current = new Board(mineArray.current);
@@ -24,24 +29,27 @@ const useBoard = () => {
     setBoardState(board.current.state());
   };
 
-  const renderGrid = () => {
-    setGrid([...board.current.grid()]);
+  const clearBoard = () => {
+    setMode("open");
+    mineArray.current = null;
+    board.current = null;
+    setGrid([]);
+    setBoardState(null);
   };
 
-  const getBoardState = () => {
+  const renderGrid = () => {
+    setGrid([...board.current.grid()]);
     setBoardState(board.current.state());
   };
 
   const openCell = (x, y) => {
     board.current.openCell(x, y);
     renderGrid();
-    getBoardState();
   };
 
   const cycleCellFlag = (x, y) => {
     board.current.cycleCellFlag(x, y);
     renderGrid();
-    getBoardState();
   };
 
   const displayValue = (cell) => {
@@ -125,7 +133,10 @@ const useBoard = () => {
     cols,
     setMines,
     mines,
+    isOpenMode,
+    isFlagMode,
     generateBoard,
+    clearBoard,
     boardState,
     openCell,
     cycleCellFlag,
